@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_base">
+
+    <RelativeLayout
+        android:id="@+id/newdaily_rl"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/background_base"
+        android:layout_alignParentTop="true">
+
+        <ImageButton
+            android:id="@+id/daily_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:background="@drawable/back"/>
+
+        <TextView
+            android:id="@+id/daily_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:text="완료"
+            android:textSize="16sp"
+            android:textColor="@color/month_date"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/newdaily_rl"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/newdaily_year"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="year-month"
+            android:textSize="12sp"
+            android:textColor="@color/memo_text"/>
+
+        <View style="@style/Divider"/>
+
+        <TextView
+            android:id="@+id/newdaily_day"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:text="DAY"
+            android:textSize="20sp"
+            android:textColor="@color/memo_weekend"/>
+
+        <View style="@style/Divider"/>
+
+        <com.example.jh.memoproject.LinedEditText
+            android:id="@+id/newdaily_editmemo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="@color/memo_text"
+            android:scrollbars="vertical"
+            android:background="@null"
+            >
+
+        </com.example.jh.memoproject.LinedEditText>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

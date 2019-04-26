@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="270dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/grid">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/gridview_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:text="date"
+                    android:textSize="10sp"
+                    android:textColor="@color/newmemo_time" />
+
+                <TextView
+                    android:id="@+id/gridview_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginRight="5dp"
+                    android:gravity="right"
+                    android:text="time"
+                    android:textSize="10sp"
+                    android:textColor="@color/newmemo_time" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/gridview_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textSize="14sp"
+                    android:textColor="@color/newmemo_title" />
+
+                <TextView
+                    android:id="@+id/gridview_memo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="content"
+                    android:textSize="10sp"
+                    android:textColor="@color/memo_text" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/gridview_delete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/delete"
+            android:scaleType="fitXY"
+            android:layout_gravity="right|top"
+            android:visibility="visible"
+            />
+    </FrameLayout>
+
+
+</LinearLayout>

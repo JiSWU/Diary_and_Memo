@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_base"
+    tools:context=".MainActivity">
+
+    <!--
+    <fragment
+        android:id="@+id/fragment_maindaily"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/main_ll"
+        android:name="com.example.jh.memoproject.fragment.Memo_Fragment"
+        tools:layout="@layout/activity_main">
+    </fragment>-->
+
+    <FrameLayout
+        android:id="@+id/fragment_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/main_ll">
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/main_ll"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="@color/background_under_button"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/daily_daily"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/daily_daily_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/daily_pressed"
+                android:scaleType="fitXY"
+                />
+
+            <TextView
+                android:id="@+id/daily_daily_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="daily"
+                android:textSize="8sp"
+                android:textColor="@color/main_text_pressed"
+                android:layout_gravity="center|top" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/daily_memo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/daily_memo_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/memo_pressed"
+                android:scaleType="fitXY"
+                />
+
+            <TextView
+                android:id="@+id/daily_memo_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="memo"
+                android:textSize="8sp"
+                android:textColor="@color/main_text_pressed"
+                android:layout_gravity="center|top"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
