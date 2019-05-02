@@ -60,7 +60,7 @@ public class MemoGridViewAdapter extends BaseAdapter {
         TextView timeTextView = (TextView) convertView.findViewById(R.id.gridview_time) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        MemoGridViewItem gridViewItem = gridViewItemList.get(position);
+        final MemoGridViewItem gridViewItem = gridViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         dateTextView.setText(gridViewItem.getDate());
@@ -82,7 +82,7 @@ public class MemoGridViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 gridViewItemList.remove(position);
-                dbHelper.delete("MEMO", position);
+                dbHelper.delete("MEMO", gridViewItem.getSeq());
                 notifyDataSetChanged();
             }
         });

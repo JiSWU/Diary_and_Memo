@@ -1,5 +1,6 @@
 package com.example.jh.memoproject.fragment;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -10,11 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.jh.memoproject.List_Grid_view.DailyListViewAdapter;
 import com.example.jh.memoproject.List_Grid_view.DailyListViewItem;
 import com.example.jh.memoproject.MainActivity;
 import com.example.jh.memoproject.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class MainDaily_Fragment extends ListFragment {
@@ -23,8 +28,11 @@ public class MainDaily_Fragment extends ListFragment {
     private ListView listview;
     private DailyListViewAdapter adapter;
     private ImageButton newBtn, delBtn;
+    private TextView year_month;
     protected NewDaily_Fragment newDaily_fragment;
     private String TagName;
+    private Cursor mCursor;
+    Bundle args;
 
     FragmentTransaction ft;
 
@@ -42,31 +50,34 @@ public class MainDaily_Fragment extends ListFragment {
         listview = (ListView) rootView.findViewById(android.R.id.list);
         newBtn = (ImageButton) rootView.findViewById(R.id.daily_new);
         delBtn = (ImageButton) rootView.findViewById(R.id.daily_delete);
+        year_month = (TextView) rootView.findViewById(R.id.daily_year);
 
         newDaily_fragment = new NewDaily_Fragment();
         TagName = ((MainActivity)getActivity()).newToMaindaily;
+        args = new Bundle();
 
         // Adapter 생성 및 Adapter 지정.
         adapter = new DailyListViewAdapter() ;
         //setListAdapter(adapter) ;
         listview.setAdapter(adapter);
 
-        // 첫 번째 아이템 추가.
-        adapter.addItem("A", "MON", "Circlevvvvv", "time") ;
-        // 두 번째 아이템 추가.
-        adapter.addItem("AA", "THU","Circle", "Account Circle Black 36dp") ;
-        // 세 번째 아이템 추가.
-        adapter.addItem("$$", "THUR","Inaaaaaaaaaaaad", "Assignment Ind Black 36dp") ;
+        // database to listview -> show items
+        doWhileCursorToArray();
 
-
+        if(adapter.getCount() == 0){
+            year_month.setVisibility(View.GONE);
+        }else{
+            year_month.setText("not null");
+        }
 
 
         newBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                args.putString("status", "new");//new
+                newDaily_fragment.setArguments(args);
                 ((MainActivity)getActivity()).addFragment(ft,newDaily_fragment, R.id.fragment_main, TagName);
                 Log.d("fragment_change", "main(daily) -> new daily");
-
             }
         });
 
@@ -85,14 +96,44 @@ public class MainDaily_Fragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
 
         DailyListViewItem item = (DailyListViewItem) l.getItemAtPosition(position) ;
+        int seq = item.getSeq();
         String day = item.getDay() ;
-        String month = item.getMonth() ;
+        String week = item.getWeek() ;
         String memo = item.getMemo() ;
-        String time = item.getTime();
+        String year_month = item.getYear_month();
+
+        args.putString("status", "edit");
+        args.putInt("seq", seq);
+        args.putString("year_month", year_month);
+        args.putString("day", day);
+        args.putString("week", week);
+        args.putString("memo", memo);
+        newDaily_fragment.setArguments(args);
+        ((MainActivity)getActivity()).addFragment(ft,newDaily_fragment, R.id.fragment_main, TagName);
     }
 
-    public void addItem(String day, String month, String memo, String time) {
-        adapter.addItem(day, month, memo, time) ;
+    private void doWhileCursorToArray(){
+
+        String memo, year_month, day, week, time;
+        int seq;
+
+        mCursor = ((MainActivity)getActivity()).dbHelper.getReadableDatabase().rawQuery(
+                "SELECT *" +
+                        " FROM DIARY ORDER BY year, day, week, time", null);
+
+        Log.e("MemoDatabase Get", "COUNT = " + mCursor.getCount());
+
+        while (mCursor.moveToNext()) {
+            seq = mCursor.getInt(0);
+            memo = mCursor.getString(1);
+            year_month = mCursor.getString(2);
+            day = mCursor.getString(3);
+            week = mCursor.getString(4);
+            time = mCursor.getString(5);
+            adapter.addItem(seq, memo, year_month, day, week, time);
+        }
+
+        mCursor.close();
     }
 
 

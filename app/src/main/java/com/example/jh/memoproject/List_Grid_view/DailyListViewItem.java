@@ -3,10 +3,12 @@ package com.example.jh.memoproject.List_Grid_view;
 public class DailyListViewItem {
 
     private int seq;
-    private String day ;
-    private String month ;
     private String memo;
+    private String year_month;
+    private String day ;
+    private String week ;
     private String time;
+
 
     public int getSeq() {
         return seq;
@@ -14,6 +16,14 @@ public class DailyListViewItem {
 
     public void setSeq(int seq) {
         this.seq = seq;
+    }
+
+    public String getYear_month(){
+        return year_month;
+    }
+
+    public void setYear_month(String year_month){
+        this.year_month = year_month;
     }
 
     public String getDay() {
@@ -24,12 +34,12 @@ public class DailyListViewItem {
         this.day = day;
     }
 
-    public String getMonth() {
-        return month;
+    public String getWeek() {
+        return week;
     }
 
-    public void setMonth(String month) {
-        this.month = month;
+    public void setWeek(String month) {
+        this.week = month;
     }
 
     public String getMemo() {

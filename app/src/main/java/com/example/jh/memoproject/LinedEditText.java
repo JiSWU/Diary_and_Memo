@@ -39,7 +39,11 @@ public class LinedEditText extends AppCompatEditText {
         int paddingBottom = getPaddingBottom();
         int paddingLeft = getPaddingLeft();
         int paddingRight = getPaddingRight();
+        //int height = getHeight();
         int height = getHeight();
+        if(height > getHeight()) {
+            height = this.getSelectionEnd();
+        }
         int lineHeight = getLineHeight();
         int count = (height-paddingTop-paddingBottom)/lineHeight;
 
@@ -51,5 +55,10 @@ public class LinedEditText extends AppCompatEditText {
         super.onDraw(canvas);
     }
 
+    @Override
+    protected void onScrollChanged(int horiz, int vert, int oldHoriz, int oldVert) {
+        super.onScrollChanged(horiz, vert, oldHoriz, oldVert);
+        invalidate();
+    }
 
 }

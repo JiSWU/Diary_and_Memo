@@ -54,40 +54,33 @@ public class DailyListViewAdapter extends BaseAdapter {
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         TextView dayTextView = (TextView) convertView.findViewById(R.id.daily_memo_day) ;
-        TextView monthTextView = (TextView) convertView.findViewById(R.id.daily_memo_month) ;
+        TextView weekTextView = (TextView) convertView.findViewById(R.id.daily_memo_week) ;
         TextView memoTextView = (TextView) convertView.findViewById(R.id.daily_memo_content) ;
         TextView timeTextView = (TextView) convertView.findViewById(R.id.daily_memo_time) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        DailyListViewItem listViewItem = listViewItemList.get(position);
+        final DailyListViewItem listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
         dayTextView.setText(listViewItem.getDay());
-        monthTextView.setText(listViewItem.getMonth());
+        weekTextView.setText(listViewItem.getWeek());
         memoTextView.setText(listViewItem.getMemo());
         timeTextView.setText(listViewItem.getTime());
 
         ImageButton deleteBtn = (ImageButton)convertView.findViewById(R.id.item_delete);
-//        LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.list_item_ll);
-//        LinearLayout.LayoutParams clickWeight = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT,0.8f);
-//        LinearLayout.LayoutParams unclickWeight = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 0.8f);
-
 
         //if delete button click
         if(mClick){
             deleteBtn.setVisibility(View.VISIBLE);
-//            linearLayout.setLayoutParams(clickWeight);
-
         }else{
             deleteBtn.setVisibility(View.GONE);
-//            linearLayout.setLayoutParams(unclickWeight);
         }
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listViewItemList.remove(position);
-                dbHelper.delete("DIARY", position);
+                dbHelper.delete("DIARY", listViewItem.getSeq());
                 notifyDataSetChanged();
             }
         });
@@ -95,12 +88,14 @@ public class DailyListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String day, String month, String memo, String time) {
+    public void addItem(int seq, String memo, String year_month, String day, String week, String time) {
         DailyListViewItem item = new DailyListViewItem();
 
-        item.setDay(day);
-        item.setMonth(month);
+        item.setSeq(seq);
         item.setMemo(memo);
+        item.setYear_month(year_month);
+        item.setDay(day);
+        item.setWeek(week);
         item.setTime(time);
 
         listViewItemList.add(item);

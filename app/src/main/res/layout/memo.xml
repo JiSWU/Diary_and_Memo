@@ -45,7 +45,7 @@
     </RelativeLayout>
 
     <GridView
-        android:padding="10dp"
+        android:paddingLeft="10dp"
         android:id="@+id/memo_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
