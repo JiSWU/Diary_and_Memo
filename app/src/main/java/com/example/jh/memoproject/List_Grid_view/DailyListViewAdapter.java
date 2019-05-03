@@ -110,4 +110,8 @@ public class DailyListViewAdapter extends BaseAdapter {
 
         notifyDataSetChanged();
     } //end showDeleteButton()
+
+    public void clearItem(){
+        listViewItemList.clear();
+    }
 }

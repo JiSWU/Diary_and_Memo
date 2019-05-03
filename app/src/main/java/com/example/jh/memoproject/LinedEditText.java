@@ -39,26 +39,20 @@ public class LinedEditText extends AppCompatEditText {
         int paddingBottom = getPaddingBottom();
         int paddingLeft = getPaddingLeft();
         int paddingRight = getPaddingRight();
-        //int height = getHeight();
         int height = getHeight();
-        if(height > getHeight()) {
-            height = this.getSelectionEnd();
-        }
         int lineHeight = getLineHeight();
         int count = (height-paddingTop-paddingBottom)/lineHeight;
+
+        //if scroll increases, draw more line
+        if(getLineCount()> count){
+            count = getLineCount();
+        }
 
         for (int i = 0; i < count; i++) {
             int baseline = lineHeight * (i+1) + paddingTop;
             canvas.drawLine(left+paddingLeft, baseline, right-paddingRight, baseline, mPaint);
         }
-
         super.onDraw(canvas);
-    }
-
-    @Override
-    protected void onScrollChanged(int horiz, int vert, int oldHoriz, int oldVert) {
-        super.onScrollChanged(horiz, vert, oldHoriz, oldVert);
-        invalidate();
     }
 
 }

@@ -19,6 +19,9 @@ import android.widget.TextView;
 import com.example.jh.memoproject.fragment.MainDaily_Fragment;
 import com.example.jh.memoproject.fragment.Memo_Fragment;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class MainActivity extends AppCompatActivity {
 
     public static String newToMaindaily = "daily";
@@ -31,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView daily_tv, memo_tv;
     private MainDaily_Fragment mainDaily_fragment;
     private Memo_Fragment memo_fragment;
+
+    //for datepicker
+    public int mYear, mMonth, mDay;
 
     FragmentTransaction ft;
 
@@ -51,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         mainDaily_fragment = new MainDaily_Fragment();
         memo_fragment = new Memo_Fragment();
         dbHelper = new DBHelper(this);
+
+        //현재 날짜와 시간을 가져오기위한 Calendar 인스턴스 선언
+        Calendar cal = new GregorianCalendar();
+        mYear = cal.get(Calendar.YEAR);
+        mMonth = cal.get(Calendar.MONTH);
+        mDay = cal.get(Calendar.DAY_OF_MONTH);
 
         //first Fragment setting
         Daily_Clicked(daily);
@@ -78,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //bottom two button click event
     public void Daily_Clicked(boolean flag){
         if(flag){
             daily_iv.setSelected(true);
@@ -101,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addFragment(FragmentTransaction fragmentTransaction, Fragment fragment, int R_id, String fragmentTag){
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R_id, fragment);
+        fragmentTransaction.add(R_id, fragment);
         fragmentTransaction.addToBackStack(fragmentTag);
         fragmentTransaction.commit();
     } //end ReplaceFragment()

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -57,23 +58,21 @@ public class NewDaily_Fragment extends Fragment {
         TagName = ((MainActivity)getActivity()).newToMaindaily;
         dbHelper = ((MainActivity)getActivity()).dbHelper;
 
-        Bundle argc = getArguments();
-        status = argc.getString("status"); //edit or new
+        Bundle recvmsg = getArguments();
 
-        //현재 날짜와 시간을 가져오기위한 Calendar 인스턴스 선언
-        Calendar cal = new GregorianCalendar();
-        mYear = cal.get(Calendar.YEAR);
-        mMonth = cal.get(Calendar.MONTH);
-        mDay = cal.get(Calendar.DAY_OF_MONTH);
+        status = recvmsg.getString("status"); //edit or new
 
-        if(argc!=null){
+        if(recvmsg!=null){
             if(status.matches("edit")) {
-                seq = argc.getInt("seq");
-                newdaily_year.setText(argc.getString("year_month"));
-                newdaily_day.setText(argc.getString("day"));
-                newdaily_week.setText(argc.getString("week"));
-                newdaily_memo.setText(argc.getString("memo"));
+                seq = recvmsg.getInt("seq");
+                newdaily_year.setText(recvmsg.getString("year_month"));
+                newdaily_day.setText(recvmsg.getString("day"));
+                newdaily_week.setText(recvmsg.getString("week"));
+                newdaily_memo.setText(recvmsg.getString("memo"));
             }else if(status.equals("new")){
+                mYear = recvmsg.getInt("picker_mYear");
+                mMonth = recvmsg.getInt("picker_mMonth");
+                mDay = recvmsg.getInt("picker_mDay");
                 UpdateNow();
             }
         } //첫 화면 초기 출력
@@ -113,13 +112,15 @@ public class NewDaily_Fragment extends Fragment {
                         Toast.makeText(getContext(),"write content", Toast.LENGTH_SHORT).show();
                     }else {
                         dbHelper.daily_insert(memo, year_month, day, week, time);
+                        ((MainActivity)getActivity()).backFragment(TagName);
+                        Log.d("fragment_change", "new daily -> main(daily)");
                     }
                 } else if(status.equals("edit")) {
-
                     dbHelper.daily_update(memo, year_month, day, week, time, seq);
+                    ((MainActivity)getActivity()).backFragment(TagName);
+                    Log.d("fragment_change", "new daily -> main(daily)");
                 }
-                ((MainActivity)getActivity()).backFragment(TagName);
-                Log.d("fragment_change", "new daily -> main(daily)");
+
             }
         });
 
@@ -150,21 +151,19 @@ public class NewDaily_Fragment extends Fragment {
             mMonth = monthOfYear;
             mDay = dayOfMonth;
 
-            //텍스트뷰의 값을 업데이트함
+            //update textview value
             UpdateNow();
         }
     };
 
-    void UpdateNow(){
+    public void UpdateNow(){
         SimpleDateFormat sdf = new SimpleDateFormat("EEE");
         Date d = new Date(mYear, mMonth, mDay);
         mweek = sdf.format(d);
 
         newdaily_year.setText(String.format("%d년 %d월",mYear, mMonth+1));
-        newdaily_day.setText(String.format("%d",mDay));
+        newdaily_day.setText(String.format("%2d",mDay));
         newdaily_week.setText(mweek);
     }
-
-
 
 }

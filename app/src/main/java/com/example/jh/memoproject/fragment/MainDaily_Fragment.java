@@ -1,7 +1,10 @@
 package com.example.jh.memoproject.fragment;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -9,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +40,9 @@ public class MainDaily_Fragment extends ListFragment {
 
     FragmentTransaction ft;
 
+    //for date picker
+    private int mYear, mMonth, mDay;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,20 +68,27 @@ public class MainDaily_Fragment extends ListFragment {
         //setListAdapter(adapter) ;
         listview.setAdapter(adapter);
 
-        // database to listview -> show items
-        doWhileCursorToArray();
+        //init now year-month.
+        mYear = ((MainActivity)getActivity()).mYear;
+        mMonth = ((MainActivity)getActivity()).mMonth;
+        mDay = ((MainActivity)getActivity()).mDay;
+        //year_mont.setText and show listview
+        UpdateNow();
 
-        if(adapter.getCount() == 0){
-            year_month.setVisibility(View.GONE);
-        }else{
-            year_month.setText("not null");
-        }
-
+        year_month.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(),mDateSetListener, mYear,mMonth, mDay).show();
+            }
+        });
 
         newBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 args.putString("status", "new");//new
+                args.putInt("picker_mYear", mYear);
+                args.putInt("picker_mMonth", mMonth);
+                args.putInt("picker_mDay", mDay);
                 newDaily_fragment.setArguments(args);
                 ((MainActivity)getActivity()).addFragment(ft,newDaily_fragment, R.id.fragment_main, TagName);
                 Log.d("fragment_change", "main(daily) -> new daily");
@@ -119,9 +133,13 @@ public class MainDaily_Fragment extends ListFragment {
 
         mCursor = ((MainActivity)getActivity()).dbHelper.getReadableDatabase().rawQuery(
                 "SELECT *" +
-                        " FROM DIARY ORDER BY year, day, week, time", null);
+                        " FROM DIARY" +
+                        " WHERE YEAR = " +
+                        "'" +
+                        this.year_month.getText().toString()+
+                        "' ORDER BY year desc, day desc, week desc, time desc", null);
 
-        Log.e("MemoDatabase Get", "COUNT = " + mCursor.getCount());
+        Log.e("DiaryDatabase Get", "COUNT = " + mCursor.getCount());
 
         while (mCursor.moveToNext()) {
             seq = mCursor.getInt(0);
@@ -137,4 +155,42 @@ public class MainDaily_Fragment extends ListFragment {
     }
 
 
+    DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            mYear = year;
+            mMonth = monthOfYear;
+            mDay = dayOfMonth;
+
+            //update textview value
+            UpdateNow();
+        }
+    };
+
+    void UpdateNow(){
+        year_month.setText(String.format("%d년 %d월",mYear, mMonth+1));
+        // database to listview -> show items
+        adapter.clearItem();
+        adapter.notifyDataSetChanged();
+        doWhileCursorToArray();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("save_mYear", mYear);
+        outState.putInt("save_mMonth", mMonth);
+        outState.putInt("save_mDay", mDay);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if(savedInstanceState!=null) {
+            mYear = savedInstanceState.getInt("save_mYear");
+            mMonth = savedInstanceState.getInt("save_mMonth");
+            mDay = savedInstanceState.getInt("save_mDay");
+        }
+    }
 }
