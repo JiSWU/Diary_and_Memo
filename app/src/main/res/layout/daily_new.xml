@@ -108,9 +108,7 @@
             android:scrollbars="vertical"
             android:background="@null"
             >
-
         </com.example.jh.memoproject.LinedEditText>
-
 
     </LinearLayout>
 

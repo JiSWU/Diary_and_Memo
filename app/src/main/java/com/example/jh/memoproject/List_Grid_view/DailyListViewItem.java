@@ -8,6 +8,7 @@ public class DailyListViewItem {
     private String day ;
     private String week ;
     private String time;
+    private int isHoliday;
 
 
     public int getSeq() {
@@ -58,5 +59,12 @@ public class DailyListViewItem {
         this.time= time;
     }
 
+    public int getHoliday() {
+        return isHoliday;
+    }
+
+    public void setHoliday(int holiday) {
+        isHoliday = holiday;
+    }
 }
 

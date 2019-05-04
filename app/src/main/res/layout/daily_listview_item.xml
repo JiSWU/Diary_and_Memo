@@ -107,5 +107,4 @@
         android:layout_alignParentBottom="true"
         style="@style/Divider"/>
 
-
     </RelativeLayout>

@@ -77,10 +77,9 @@
             android:textColor="@color/memo_text"
             android:background="@null"
             android:singleLine="false"
-            />
+            android:textIsSelectable="true" />
 
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/newmemo_datetime"
@@ -94,6 +93,269 @@
         android:textSize="10sp"
         android:textColor="@color/newmemo_time"/>
 
+    <!--total string style-->
+    <LinearLayout
+        android:id="@+id/total_style"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_memo_style"
+        android:orientation="horizontal"
+        android:weightSum="1.2"
+        android:visibility="invisible">
 
+        <ImageButton
+            android:id="@+id/font_style"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:background="@drawable/font_style"
+            android:scaleType="fitXY"/>
+
+        <ImageButton
+            android:id="@+id/font_size"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:background="@drawable/font_size"
+            android:scaleType="fitXY"/>
+
+        <ImageButton
+            android:id="@+id/font_bold"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:background="@drawable/bold"
+            android:scaleType="fitXY"/>
+
+        <ImageButton
+            android:id="@+id/font_highlight"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:background="@drawable/highlight"
+            android:scaleType="fitXY"/>
+
+        <ImageButton
+            android:id="@+id/font_row"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:background="@drawable/betwwen_row"
+            android:scaleType="fitXY"/>
+
+        <ImageButton
+            android:id="@+id/font_color"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.2"
+            android:layout_gravity="center"
+            android:background="@drawable/color"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+
+    <!--select font-->
+    <RelativeLayout
+        android:id="@+id/style_font"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_memo_style"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:id="@+id/font_check"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/check"
+            android:scaleType="fitXY"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/background_memo_style"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/font_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:layout_gravity="center_horizontal"
+                android:text="굴림"
+                android:textColor="@color/memo_font_style"
+                android:textSize="14sp"
+                android:fontFamily="@font/gulim"/>
+            <TextView
+                android:id="@+id/font_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="궁서"
+                android:textColor="@color/memo_font_style"
+                android:textSize="14sp"
+                android:fontFamily="@font/gungsuh"/>
+            <TextView
+                android:id="@+id/font_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="돋움"
+                android:textColor="@color/memo_font_style"
+                android:textSize="14sp"
+                android:fontFamily="@font/dotum"/>
+            <TextView
+                android:id="@+id/font_4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="바탕"
+                android:textColor="@color/memo_font_style"
+                android:textSize="14sp"
+                android:fontFamily="@font/batang"/>
+            <TextView
+                android:id="@+id/font_5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="맑은 고딕"
+                android:textColor="@color/memo_font_style"
+                android:textSize="12sp"
+                android:fontFamily="@font/malgun"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--select font size-->
+    <RelativeLayout
+        android:id="@+id/style_font_size"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_memo_style"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:id="@+id/font_size_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/font_size"
+            android:scaleType="fitXY"/>
+
+        <ImageButton
+            android:id="@+id/font_size_check"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/check"
+            android:scaleType="fitXY"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/background_memo_style"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--select font row-->
+    <RelativeLayout
+        android:id="@+id/style_font_row"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_memo_style"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:id="@+id/font_row_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/font_size"
+            android:scaleType="fitXY"/>
+
+        <ImageButton
+            android:id="@+id/font_row_check"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/check"
+            android:scaleType="fitXY"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/background_memo_style"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--select font color-->
+    <RelativeLayout
+        android:id="@+id/style_font_color"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_memo_style"
+        android:visibility="visible">
+
+        <ImageButton
+            android:id="@+id/font_color_check"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/check"
+            android:scaleType="fitXY"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/background_memo_style"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.2"
+                android:background="@drawable/circle"/>
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

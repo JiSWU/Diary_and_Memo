@@ -2,6 +2,7 @@ package com.example.jh.memoproject;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,7 +23,7 @@ import com.example.jh.memoproject.fragment.Memo_Fragment;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnDatePickerStateSetListener{
 
     public static String newToMaindaily = "daily";
     public static String newToMainmemo = "memo";
@@ -108,13 +109,13 @@ public class MainActivity extends AppCompatActivity {
     public void replaceFragment(FragmentTransaction fragmentTransaction, Fragment fragment, int R_id){
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R_id, fragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     } //end ReplaceFragment()
 
-
     public void addFragment(FragmentTransaction fragmentTransaction, Fragment fragment, int R_id, String fragmentTag){
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R_id, fragment);
+        fragmentTransaction.replace(R_id, fragment);
         fragmentTransaction.addToBackStack(fragmentTag);
         fragmentTransaction.commit();
     } //end ReplaceFragment()
@@ -123,4 +124,18 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().popBackStack(fragmentTag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     } //end ReplaceFragment()
 
+    @Override
+    public void onDatePickerStateSetListener(int year, int month, int day){
+        mYear = year;
+        mMonth = month;
+        mDay = day;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("save_mYear", mYear);
+        outState.putInt("save_mMonth", mMonth);
+        outState.putInt("save_mDay", mDay);
+    }
 }

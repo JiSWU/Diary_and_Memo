@@ -1,6 +1,8 @@
 package com.example.jh.memoproject.List_Grid_view;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ public class DailyListViewAdapter extends BaseAdapter {
 
     private ArrayList<DailyListViewItem> listViewItemList = new ArrayList<DailyListViewItem>() ;
     private boolean mClick = false;
-    private DBHelper dbHelper;
+    int pos;
 
     public DailyListViewAdapter(){
 
@@ -42,9 +44,10 @@ public class DailyListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final int pos = position;
-        final Context context = parent.getContext();
-        dbHelper = new DBHelper(context);
+        pos = position;
+        Context context = parent.getContext();
+        final DBHelper dbHelper = new DBHelper(context);
+        int isholdiay = 0;
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
@@ -57,6 +60,7 @@ public class DailyListViewAdapter extends BaseAdapter {
         TextView weekTextView = (TextView) convertView.findViewById(R.id.daily_memo_week) ;
         TextView memoTextView = (TextView) convertView.findViewById(R.id.daily_memo_content) ;
         TextView timeTextView = (TextView) convertView.findViewById(R.id.daily_memo_time) ;
+        ImageButton deleteBtn = (ImageButton)convertView.findViewById(R.id.item_delete);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         final DailyListViewItem listViewItem = listViewItemList.get(position);
@@ -66,8 +70,9 @@ public class DailyListViewAdapter extends BaseAdapter {
         weekTextView.setText(listViewItem.getWeek());
         memoTextView.setText(listViewItem.getMemo());
         timeTextView.setText(listViewItem.getTime());
+        isholdiay = listViewItem.getHoliday(); //if the day is holiday: true
 
-        ImageButton deleteBtn = (ImageButton)convertView.findViewById(R.id.item_delete);
+        changeColor(context, isholdiay, dayTextView, weekTextView);
 
         //if delete button click
         if(mClick){
@@ -88,7 +93,7 @@ public class DailyListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(int seq, String memo, String year_month, String day, String week, String time) {
+    public void addItem(int seq, String memo, String year_month, String day, String week, String time, int isholiday) {
         DailyListViewItem item = new DailyListViewItem();
 
         item.setSeq(seq);
@@ -97,8 +102,10 @@ public class DailyListViewAdapter extends BaseAdapter {
         item.setDay(day);
         item.setWeek(week);
         item.setTime(time);
+        item.setHoliday(isholiday);
 
         listViewItemList.add(item);
+        notifyDataSetChanged();
     }
 
     public void showDeleteButton() {
@@ -107,11 +114,21 @@ public class DailyListViewAdapter extends BaseAdapter {
             mClick = false;
         else
             mClick = true;
-
         notifyDataSetChanged();
     } //end showDeleteButton()
 
     public void clearItem(){
         listViewItemList.clear();
     }
+
+    public void changeColor(Context context,int isholiday, TextView day, TextView week){
+        if(isholiday == 1){ //holiday true
+            day.setTextColor(context.getResources().getColor(R.color.memo_weekend, null));
+            week.setTextColor(context.getResources().getColor(R.color.memo_weekend, null));
+        }else{
+            day.setTextColor(context.getResources().getColor(R.color.memo_week_date, null));
+            week.setTextColor(context.getResources().getColor(R.color.memo_week, null));
+        }
+    } //change textColor
+
 }

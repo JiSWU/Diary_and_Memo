@@ -37,7 +37,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 "YEAR TEXT," +
                 "DAY TEXT," +
                 "WEEK TEXT," +
-                "TIME TEXT)");
+                "TIME TEXT," +
+                "HOLIDAY INTEGER)");
         db.execSQL("CREATE TABLE "+ MEMO_TABLE + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "TITLE TEXT," +
                 "MEMO TEXT," +
@@ -87,7 +88,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void daily_insert(String memo, String year, String day, String week, String time) {
+    public void daily_insert(String memo, String year, String day, String week, String time, int holiday) {
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
         // DB에 입력한 값으로 행 추가
@@ -97,6 +98,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("DAY", day);
         values.put("WEEK", week);
         values.put("TIME", time);
+        values.put("HOLIDAY", holiday);
 
         long id = db.insert(DIARY_TABLE, null, values);
         Log.d("DATABASE","Diary Database Insert Id:"+id);
@@ -104,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void daily_update(String memo, String year, String day, String week, String time, int seq) {
+    public void daily_update(String memo, String year, String day, String week, String time, int seq, int holiday) {
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
         // DB에 입력한 값으로 행 추가
@@ -114,6 +116,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("DAY", day);
         values.put("WEEK", week);
         values.put("TIME", time);
+        values.put("HOLIDAY", holiday);
 
         db.update(DIARY_TABLE, values, "_ID=" + seq, null);
         db.close();

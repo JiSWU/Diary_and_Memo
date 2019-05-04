@@ -60,7 +60,6 @@
                 android:layout_gravity="center|top" />
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/daily_memo"
             android:layout_width="0dp"

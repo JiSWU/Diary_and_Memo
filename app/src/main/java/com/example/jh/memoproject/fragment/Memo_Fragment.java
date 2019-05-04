@@ -90,8 +90,6 @@ public class Memo_Fragment extends Fragment {
             }
         });
 
-
-
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -115,14 +113,12 @@ public class Memo_Fragment extends Fragment {
 
             }
         });
-
         return rootView;
-        //return super.onCreateView(inflater, container, savedInstanceState);
     }
 
 
     /**
-     * DB에서 받아온 값을 ArrayList에 Add
+     * Get db data -> add to arraylist
      */
     private void doWhileCursorToArray(){
 

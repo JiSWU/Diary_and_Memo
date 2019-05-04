@@ -3,7 +3,10 @@ package com.example.jh.memoproject.fragment;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -50,6 +53,8 @@ public class NewMemo_Fragment extends Fragment {
                 Newmemo_Title.setText(argc.getString("title"));
                 Newmemo_Memo.setText(argc.getString("memo"));
                 Newmemo_DateTime.setText(argc.getString("date") + "\n" + argc.getString("time"));
+            }else {
+                Newmemo_DateTime.setVisibility(View.GONE);
             }
         }
 
@@ -82,7 +87,45 @@ public class NewMemo_Fragment extends Fragment {
             }
         });
 
+        // TODO: this is important thisng
+        final GestureDetector gesture = new GestureDetector(getActivity(),
+                new GestureDetector.SimpleOnGestureListener() {
 
+                    @Override
+                    public boolean onDown(MotionEvent e) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                                           float velocityY) {
+                        final int SWIPE_MIN_DISTANCE = 120;
+                        final int SWIPE_MAX_OFF_PATH = 250;
+                        final int SWIPE_THRESHOLD_VELOCITY = 200;
+                        try {
+                            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+                                return false;
+                            if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                                Log.i("gesture", "Right to Left");
+                            } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                                Log.i("gesture", "Left to Right");
+                            }
+                        } catch (Exception e) {
+                            // nothing
+                        }
+                        return super.onFling(e1, e2, velocityX, velocityY);
+                    }
+                });
+
+        rootView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gesture.onTouchEvent(event);
+                return true; // <-- this line made the difference
+            }
+        });
         return rootView;
         //return super.onCreateView(inflater, container, savedInstanceState);
     }

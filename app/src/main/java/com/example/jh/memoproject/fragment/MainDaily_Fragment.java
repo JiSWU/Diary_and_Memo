@@ -2,7 +2,9 @@ package com.example.jh.memoproject.fragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,11 +22,8 @@ import android.widget.TextView;
 import com.example.jh.memoproject.List_Grid_view.DailyListViewAdapter;
 import com.example.jh.memoproject.List_Grid_view.DailyListViewItem;
 import com.example.jh.memoproject.MainActivity;
+import com.example.jh.memoproject.OnDatePickerStateSetListener;
 import com.example.jh.memoproject.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 public class MainDaily_Fragment extends ListFragment {
 
@@ -36,12 +35,17 @@ public class MainDaily_Fragment extends ListFragment {
     protected NewDaily_Fragment newDaily_fragment;
     private String TagName;
     private Cursor mCursor;
+    private Context context;
     Bundle args;
 
     FragmentTransaction ft;
 
+
+    protected StringBuilder sb;
+
     //for date picker
     private int mYear, mMonth, mDay;
+    private OnDatePickerStateSetListener onDatePickerStateSetListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,7 +133,8 @@ public class MainDaily_Fragment extends ListFragment {
     private void doWhileCursorToArray(){
 
         String memo, year_month, day, week, time;
-        int seq;
+        int seq, isholiday;
+
 
         mCursor = ((MainActivity)getActivity()).dbHelper.getReadableDatabase().rawQuery(
                 "SELECT *" +
@@ -148,12 +153,13 @@ public class MainDaily_Fragment extends ListFragment {
             day = mCursor.getString(3);
             week = mCursor.getString(4);
             time = mCursor.getString(5);
-            adapter.addItem(seq, memo, year_month, day, week, time);
-        }
+            isholiday = mCursor.getInt(6);
 
+            adapter.addItem(seq, memo, year_month, day, week, time, isholiday);
+
+        }
         mCursor.close();
     }
-
 
     DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -169,7 +175,7 @@ public class MainDaily_Fragment extends ListFragment {
     };
 
     void UpdateNow(){
-        year_month.setText(String.format("%d년 %d월",mYear, mMonth+1));
+        year_month.setText(String.format("%d년 %02d월",mYear, mMonth+1));
         // database to listview -> show items
         adapter.clearItem();
         adapter.notifyDataSetChanged();
@@ -177,20 +183,36 @@ public class MainDaily_Fragment extends ListFragment {
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("save_mYear", mYear);
-        outState.putInt("save_mMonth", mMonth);
-        outState.putInt("save_mDay", mDay);
-    }
-
-    @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState!=null) {
+        if(savedInstanceState != null){
             mYear = savedInstanceState.getInt("save_mYear");
             mMonth = savedInstanceState.getInt("save_mMonth");
             mDay = savedInstanceState.getInt("save_mDay");
         }
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+        if(context instanceof OnDatePickerStateSetListener){
+            onDatePickerStateSetListener = (OnDatePickerStateSetListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + "must implements onDatePickerStateSetListener");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        onDatePickerStateSetListener.onDatePickerStateSetListener(mYear, mMonth, mDay);
+    }
+
 }

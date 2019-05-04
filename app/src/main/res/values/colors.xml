@@ -22,5 +22,7 @@
     <color name="newmemo_title">#945D48</color>
     <color name="newmemo_time">#9C9C9C</color>
 
+    <color name="background_memo_style">#F6F6F6</color>
+    <color name="memo_font_style">#717171</color>
 
 </resources>
