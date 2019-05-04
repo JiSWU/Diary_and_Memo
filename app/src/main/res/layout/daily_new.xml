@@ -68,7 +68,7 @@
                 android:text="DAY"
                 android:textSize="20sp"
                 android:gravity="bottom"
-                android:textColor="@color/memo_weekend" />
+                android:textColor="@color/memo_week" />
 
             <TextView
                 android:id="@+id/newdaily_underline"
@@ -80,7 +80,7 @@
                 android:text="_"
                 android:textSize="20sp"
                 android:gravity="bottom"
-                android:textColor="@color/memo_weekend" />
+                android:textColor="@color/memo_week" />
 
             <TextView
                 android:id="@+id/newdaily_week"
@@ -92,7 +92,7 @@
                 android:text="Week"
                 android:textSize="16sp"
                 android:gravity="bottom"
-                android:textColor="@color/memo_weekend"/>
+                android:textColor="@color/memo_week"/>
         </RelativeLayout>
 
         <View style="@style/Divider"/>

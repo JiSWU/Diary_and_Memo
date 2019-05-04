@@ -60,17 +60,34 @@ public class NewDaily_Fragment extends Fragment {
 
     }
 
+    DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            mYear = year;
+            mMonth = monthOfYear;
+            mDay = dayOfMonth;
+            UpdateNow(); //update textview value
+        }
+    };
+
+    public void mOnClick(View v){
+        if(v.getId() == R.id.newdaily_year || v.getId() == R.id.newdaily_day || v.getId() == R.id.newdaily_week) {
+            new DatePickerDialog(getActivity(), mDateSetListener, mYear,mMonth, mDay).show();
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.daily_new, container, false);
 
-        newdaily_memo = (LinedEditText) rootView.findViewById(R.id.newdaily_editmemo);
-        newdaily_year = (TextView) rootView.findViewById(R.id.newdaily_year);
-        newdaily_day = (TextView) rootView.findViewById(R.id.newdaily_day);
-        newdaily_week = (TextView) rootView.findViewById(R.id.newdaily_week);
-        newdaily_back = (ImageButton) rootView.findViewById(R.id.daily_back);
-        newdaily_save = (TextView) rootView.findViewById(R.id.daily_save);
+        newdaily_memo = rootView.findViewById(R.id.newdaily_editmemo);
+        newdaily_year = rootView.findViewById(R.id.newdaily_year);
+        newdaily_day = rootView.findViewById(R.id.newdaily_day);
+        newdaily_week = rootView.findViewById(R.id.newdaily_week);
+        newdaily_back = rootView.findViewById(R.id.daily_back);
+        newdaily_save = rootView.findViewById(R.id.daily_save);
 
         TagName = ((MainActivity)getActivity()).newToMaindaily;
         dbHelper = ((MainActivity)getActivity()).dbHelper;
@@ -80,12 +97,22 @@ public class NewDaily_Fragment extends Fragment {
         status = recvmsg.getString("status"); //edit or new
 
         if(recvmsg!=null){
+            int state;
             if(status.matches("edit")) {
                 seq = recvmsg.getInt("seq");
                 newdaily_year.setText(recvmsg.getString("year_month"));
                 newdaily_day.setText(recvmsg.getString("day"));
                 newdaily_week.setText(recvmsg.getString("week"));
                 newdaily_memo.setText(recvmsg.getString("memo"));
+                state = recvmsg.getInt("holiday");
+                if(state==1){
+                    newdaily_day.setTextColor(getContext().getResources().getColorStateList(R.color.memo_weekend, null));
+                    newdaily_week.setTextColor(getContext().getResources().getColorStateList(R.color.memo_weekend, null));
+                }else {
+                    newdaily_day.setTextColor(getContext().getResources().getColor(R.color.memo_week, null));
+                    newdaily_week.setTextColor(getContext().getResources().getColor(R.color.memo_week, null));
+                }
+
             }else if(status.equals("new")){
                 mYear = recvmsg.getInt("picker_mYear");
                 mMonth = recvmsg.getInt("picker_mMonth");
@@ -93,6 +120,9 @@ public class NewDaily_Fragment extends Fragment {
                 UpdateNow();
             }
         } //첫 화면 초기 출력
+
+
+
 
         newdaily_year.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +173,11 @@ public class NewDaily_Fragment extends Fragment {
 
                             if(status.equals("new")){
                                 if(memo.equals("")){
-                                    Toast.makeText(getContext(),"write content", Toast.LENGTH_SHORT).show();
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            Toast.makeText(getContext(),"write content", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }else {
                                     dbHelper.daily_insert(memo, year_month, day, week, time, holiday);
                                     ((MainActivity)getActivity()).backFragment(TagName);
@@ -158,8 +192,23 @@ public class NewDaily_Fragment extends Fragment {
                             }
                         }
                     }.start();
+                }else{
+                    if(status.equals("new")){
+                        if(memo.equals("")){
+                            Toast.makeText(getContext(),"write content", Toast.LENGTH_SHORT).show();
+                        }else {
+                            dbHelper.daily_insert(memo, year_month, day, week, time, holiday);
+                            ((MainActivity)getActivity()).backFragment(TagName);
+                            Log.d("fragment_change", "new daily -> main(daily)");
+                        }
+                    } else if(status.equals("edit")) {
+                        dbHelper.daily_update(memo, year_month, day, week, time, seq, holiday);
+                        ((MainActivity)getActivity()).backFragment(TagName);
+                        Log.d("fragment_change", "new daily -> main(daily)");
+
+                        Log.d("holiday", "this value is holiday: "+holiday);
+                    }
                 }
-                //TODO
 
            }
         });
@@ -171,30 +220,9 @@ public class NewDaily_Fragment extends Fragment {
                 Log.d("fragment_change", "new daily -> main(daily)");
             }
         });
-
+        
         return rootView;
-        //return super.onCreateView(inflater, container, savedInstanceState);
     }
-
-    public void mOnClick(View v){
-        if(v.getId() == R.id.newdaily_year || v.getId() == R.id.newdaily_day || v.getId() == R.id.newdaily_week) {
-            new DatePickerDialog(getActivity(), mDateSetListener, mYear,mMonth, mDay).show();
-        }
-    }
-
-    DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            // TODO Auto-generated method stub
-            mYear = year;
-            mMonth = monthOfYear;
-            mDay = dayOfMonth;
-
-            //update textview value
-            UpdateNow();
-        }
-    };
 
     public void UpdateNow(){
         SimpleDateFormat sdf = new SimpleDateFormat("EEE");
@@ -252,7 +280,7 @@ public class NewDaily_Fragment extends Fragment {
                 NodeList locdateNode = fstElmnt.getElementsByTagName("locdate");
                 Element nameElement = (Element) locdateNode.item(0);
                 locdateNode = nameElement.getChildNodes();
-                locdate = ((Node) locdateNode.item(0)).getNodeValue();
+                locdate = locdateNode.item(0).getNodeValue();
                 Log.i("holiday_paringlocdate: ", locdate);
                 Log.i("holiday_paringdate: ", date);
 

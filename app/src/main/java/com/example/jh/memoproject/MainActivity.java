@@ -1,18 +1,13 @@
 package com.example.jh.memoproject;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -47,13 +42,13 @@ public class MainActivity extends AppCompatActivity implements OnDatePickerState
         setContentView(R.layout.activity_main);
 
         //define
-        daily_ll = (LinearLayout)findViewById(R.id.daily_daily);
-        daily_iv = (ImageView)findViewById(R.id.daily_daily_iv);
-        daily_tv = (TextView)findViewById(R.id.daily_daily_tv);
+        daily_ll = findViewById(R.id.daily_daily);
+        daily_iv = findViewById(R.id.daily_daily_iv);
+        daily_tv = findViewById(R.id.daily_daily_tv);
 
-        memo_ll = (LinearLayout)findViewById(R.id.daily_memo);
-        memo_iv = (ImageView) findViewById(R.id.daily_memo_iv);
-        memo_tv = (TextView)findViewById(R.id.daily_memo_tv);
+        memo_ll = findViewById(R.id.daily_memo);
+        memo_iv = findViewById(R.id.daily_memo_iv);
+        memo_tv = findViewById(R.id.daily_memo_tv);
 
         mainDaily_fragment = new MainDaily_Fragment();
         memo_fragment = new Memo_Fragment();
@@ -109,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements OnDatePickerState
     public void replaceFragment(FragmentTransaction fragmentTransaction, Fragment fragment, int R_id){
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R_id, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     } //end ReplaceFragment()
 

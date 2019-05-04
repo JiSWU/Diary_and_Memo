@@ -1,12 +1,9 @@
 package com.example.jh.memoproject.fragment;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -58,10 +55,10 @@ public class MainDaily_Fragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.daily_main, container, false);
 
         //define
-        listview = (ListView) rootView.findViewById(android.R.id.list);
-        newBtn = (ImageButton) rootView.findViewById(R.id.daily_new);
-        delBtn = (ImageButton) rootView.findViewById(R.id.daily_delete);
-        year_month = (TextView) rootView.findViewById(R.id.daily_year);
+        listview = rootView.findViewById(android.R.id.list);
+        newBtn = rootView.findViewById(R.id.daily_new);
+        delBtn = rootView.findViewById(R.id.daily_delete);
+        year_month = rootView.findViewById(R.id.daily_year);
 
         newDaily_fragment = new NewDaily_Fragment();
         TagName = ((MainActivity)getActivity()).newToMaindaily;
@@ -119,6 +116,7 @@ public class MainDaily_Fragment extends ListFragment {
         String week = item.getWeek() ;
         String memo = item.getMemo() ;
         String year_month = item.getYear_month();
+        int holiday = item.getHoliday();
 
         args.putString("status", "edit");
         args.putInt("seq", seq);
@@ -126,6 +124,7 @@ public class MainDaily_Fragment extends ListFragment {
         args.putString("day", day);
         args.putString("week", week);
         args.putString("memo", memo);
+        args.putInt("holiday", holiday);
         newDaily_fragment.setArguments(args);
         ((MainActivity)getActivity()).addFragment(ft,newDaily_fragment, R.id.fragment_main, TagName);
     }
