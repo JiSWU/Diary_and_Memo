@@ -42,8 +42,11 @@
     <color name="color13">#8C5C1C</color>
     <color name="color14">#000000</color>
 
-
-
+    <!--font size-->
+    <color name="seekbar_resize">#717171</color>
+    <color name="thumb_text">#717171</color>
+    <color name="seekbar">#C5C5C5</color>
+    <color name="seekbar_under">#E0E0E0</color>
 
 
 

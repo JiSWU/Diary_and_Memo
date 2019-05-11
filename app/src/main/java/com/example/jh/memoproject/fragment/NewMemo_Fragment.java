@@ -3,19 +3,19 @@ package com.example.jh.memoproject.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jh.memoproject.DBHelper;
 import com.example.jh.memoproject.MainActivity;
+import com.example.jh.memoproject.OnSwipeTouchListener;
 import com.example.jh.memoproject.R;
 
 public class NewMemo_Fragment extends Fragment {
@@ -26,6 +26,13 @@ public class NewMemo_Fragment extends Fragment {
     private String TagName, status, title, memo;
     private int seq;
     private DBHelper dbHelper;
+
+    //string modifier
+    protected LinearLayout total_style_ll;
+    protected ImageButton font_ib, size_ib, bold_ib, highlight_ib, row_ib, color_ib;
+    protected RelativeLayout font_rl, size_rl, row_rl, color_rl;
+
+
 
     @Nullable
     @Override
@@ -38,6 +45,20 @@ public class NewMemo_Fragment extends Fragment {
         Newmemo_Title = rootView.findViewById(R.id.newmemo_title);
         Newmemo_Memo = rootView.findViewById(R.id.newmemo_memo);
         Newmemo_DateTime = rootView.findViewById(R.id.newmemo_datetime);
+
+        //font(text) editor
+        total_style_ll = rootView.findViewById(R.id.total_style);
+        font_ib = rootView.findViewById(R.id.font_style);
+        size_ib = rootView.findViewById(R.id.font_size);
+        bold_ib = rootView.findViewById(R.id.font_bold);
+        highlight_ib = rootView.findViewById(R.id.font_highlight);
+        row_ib = rootView.findViewById(R.id.font_row);
+        color_ib = rootView.findViewById(R.id.font_color);
+        font_rl = rootView.findViewById(R.id.style_font);
+        size_rl = rootView.findViewById(R.id.style_font_size);
+        row_rl = rootView.findViewById(R.id.style_font_row);
+        color_rl = rootView.findViewById(R.id.style_font_color);
+
 
         TagName = ((MainActivity)getActivity()).newToMainmemo;
         dbHelper = ((MainActivity)getActivity()).dbHelper;
@@ -85,45 +106,55 @@ public class NewMemo_Fragment extends Fragment {
             }
         });
 
-        // TODO: implement swipe, margin right left 수정(color pallete)
-        final GestureDetector gesture = new GestureDetector(getActivity(),
-                new GestureDetector.SimpleOnGestureListener() {
+        //swipe to show text editor
+        Newmemo_Memo.setOnTouchListener(new OnSwipeTouchListener(getContext()){
 
-                    @Override
-                    public boolean onDown(MotionEvent e) {
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                                           float velocityY) {
-                        final int SWIPE_MIN_DISTANCE = 120;
-                        final int SWIPE_MAX_OFF_PATH = 250;
-                        final int SWIPE_THRESHOLD_VELOCITY = 200;
-                        try {
-                            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
-                                return false;
-                            if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
-                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                                Log.i("gesture", "Right to Left");
-                            } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
-                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                                Log.i("gesture", "Left to Right");
-                            }
-                        } catch (Exception e) {
-                            // nothing
-                        }
-                        return super.onFling(e1, e2, velocityX, velocityY);
-                    }
-                });
-
-        rootView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                gesture.onTouchEvent(event);
-                return true; // <-- this line made the difference
+            public void onSwipeTop() {
+                super.onSwipeTop();
+                total_style_ll.setVisibility(View.VISIBLE);
+                Newmemo_Memo.setFocusableInTouchMode(true);
+            }
+
+            @Override
+            public void onSwipeBottom() {
+                super.onSwipeBottom();
+                total_style_ll.setVisibility(View.GONE);
             }
         });
+
+        font_ib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                total_style_ll.setVisibility(View.GONE);
+                font_rl.setVisibility(View.VISIBLE);
+            }
+        });
+
+        size_ib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                total_style_ll.setVisibility(View.GONE);
+                size_rl.setVisibility(View.VISIBLE);
+            }
+        });
+
+        row_ib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                total_style_ll.setVisibility(View.GONE);
+                row_rl.setVisibility(View.VISIBLE);
+            }
+        });
+
+        color_ib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                total_style_ll.setVisibility(View.GONE);
+                color_rl.setVisibility(View.VISIBLE);
+            }
+        });
+
         return rootView;
         //return super.onCreateView(inflater, container, savedInstanceState);
     }

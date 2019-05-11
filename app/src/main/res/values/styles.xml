@@ -6,6 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!--seekbar color-->
+        <item name="android:colorControlActivated">@color/seekbar</item>
+        <item name="android:colorControlNormal">@color/seekbar_under</item>
     </style>
 
     <style name="Divider">

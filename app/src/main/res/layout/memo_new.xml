@@ -73,7 +73,9 @@
             android:hint="Input Memo"
             android:textSize="14sp"
             android:textColor="@color/memo_text"
-            android:background="@null" />
+            android:background="@null"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
 
     </LinearLayout>
 
@@ -245,7 +247,7 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/background_memo_style"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageButton
             android:id="@+id/font_size_img"
@@ -278,7 +280,9 @@
                 android:layout_alignParentLeft="true"
                 android:background="@null"
                 android:gravity="center_horizontal"
-                android:text="ㅡ"/>
+                android:text="ㅡ"
+                android:textColor="@color/seekbar_resize"
+                android:textSize="10sp"/>
 
             <SeekBar
                 android:id="@+id/font_size_seekbar"
@@ -286,6 +290,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/font_size_plus"
                 android:layout_toRightOf="@+id/font_size_minus"
+                android:max="100"
                 />
 
             <Button
@@ -295,7 +300,9 @@
                 android:layout_alignParentRight="true"
                 android:background="@null"
                 android:gravity="center"
-                android:text="+"/>
+                android:text="+"
+                android:textColor="@color/seekbar_resize"
+                android:textSize="10sp"/>
 
         </RelativeLayout>
     </RelativeLayout>
@@ -327,17 +334,46 @@
             android:background="@drawable/check"
             android:scaleType="fitXY"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/background_memo_style"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:background="@color/background_memo_style">
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/font_row_minus"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:background="@null"
+                android:gravity="center_horizontal"
+                android:text="ㅡ"
+                android:textColor="@color/seekbar_resize"
+                android:textSize="10sp"/>
+
+            <SeekBar
+                android:id="@+id/font_row_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/font_row_plus"
+                android:layout_toRightOf="@+id/font_row_minus"
+                android:max="100"
+                />
+
+            <Button
+                android:id="@+id/font_row_plus"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/seekbar_resize"
+                android:textSize="10sp"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <!--select font color-->
@@ -361,10 +397,8 @@
 
         <LinearLayout
             android:layout_height="match_parent"
-            android:layout_marginLeft="0dp"
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_marginRight="0dp"
             android:orientation="vertical"
             android:weightSum="1">
 
@@ -372,47 +406,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1.4">
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color1" />
 
                 <ImageView
-                    android:layout_width="15dp"
+                    android:layout_width="0dp"
                     android:layout_height="15dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color2" />
 
                 <ImageView
-                    android:layout_width="15dp"
+                    android:layout_width="0dp"
                     android:layout_height="15dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color3" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color4" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color5" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color6" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:background="@drawable/color7" />
             </LinearLayout>
 
@@ -421,48 +463,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1.4">
 
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color8" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color9" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color10" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color11" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color12" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/color13" />
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="0dp"
+                    android:layout_height="18dp"
+                    android:layout_weight="0.2"
                     android:background="@drawable/color14" />
             </LinearLayout>
 
