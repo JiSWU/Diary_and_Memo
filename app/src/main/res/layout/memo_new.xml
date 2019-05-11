@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -52,7 +50,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/newmemo_rl"
         android:orientation="vertical"
-        android:padding="25dp">
+        android:padding="20dp">
 
         <EditText
             android:id="@+id/newmemo_title"
@@ -70,14 +68,12 @@
             android:id="@+id/newmemo_memo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:gravity="top"
             android:hint="Input Memo"
             android:textSize="14sp"
             android:textColor="@color/memo_text"
-            android:background="@null"
-            android:singleLine="false"
-            android:textIsSelectable="true" />
+            android:background="@null" />
 
     </LinearLayout>
 
@@ -104,7 +100,7 @@
         android:background="@color/background_memo_style"
         android:orientation="horizontal"
         android:weightSum="1.2"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <ImageButton
             android:id="@+id/font_style"
@@ -170,7 +166,7 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/background_memo_style"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <ImageButton
             android:id="@+id/font_check"
@@ -249,7 +245,7 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/background_memo_style"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ImageButton
             android:id="@+id/font_size_img"
@@ -267,17 +263,41 @@
             android:background="@drawable/check"
             android:scaleType="fitXY"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/background_memo_style"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:background="@color/background_memo_style">
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/font_size_minus"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:background="@null"
+                android:gravity="center_horizontal"
+                android:text="ㅡ"/>
+
+            <SeekBar
+                android:id="@+id/font_size_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/font_size_plus"
+                android:layout_toRightOf="@+id/font_size_minus"
+                />
+
+            <Button
+                android:id="@+id/font_size_plus"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:gravity="center"
+                android:text="+"/>
+
+        </RelativeLayout>
     </RelativeLayout>
 
     <!--select font row-->
@@ -289,14 +309,14 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/background_memo_style"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <ImageButton
             android:id="@+id/font_row_img"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/font_size"
+            android:background="@drawable/betwwen_row"
             android:scaleType="fitXY"/>
 
         <ImageButton
@@ -329,7 +349,7 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/background_memo_style"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageButton
             android:id="@+id/font_color_check"
@@ -340,22 +360,115 @@
             android:scaleType="fitXY"/>
 
         <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/background_memo_style"
-            android:orientation="horizontal"
+            android:layout_marginRight="0dp"
+            android:orientation="vertical"
             android:weightSum="1">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="0.2"
-                android:background="@drawable/circle"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color1" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color2" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color3" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color4" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color5" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color6" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/color7" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color8" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color9" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color10" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color11" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color12" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/color13" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/color14" />
+            </LinearLayout>
 
         </LinearLayout>
+
+
     </RelativeLayout>
 
 </RelativeLayout>

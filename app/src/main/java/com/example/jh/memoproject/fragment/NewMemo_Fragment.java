@@ -1,7 +1,7 @@
 package com.example.jh.memoproject.fragment;
 
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -18,8 +18,6 @@ import com.example.jh.memoproject.DBHelper;
 import com.example.jh.memoproject.MainActivity;
 import com.example.jh.memoproject.R;
 
-import org.w3c.dom.Text;
-
 public class NewMemo_Fragment extends Fragment {
 
     private ImageButton Newmemo_Back;
@@ -35,11 +33,11 @@ public class NewMemo_Fragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.memo_new, container, false);
 
-        Newmemo_Back = (ImageButton) rootView.findViewById(R.id.newmemo_back);
-        Newmemo_Save = (TextView) rootView.findViewById(R.id.newmemo_save);
-        Newmemo_Title = (EditText) rootView.findViewById(R.id.newmemo_title);
-        Newmemo_Memo = (EditText) rootView.findViewById(R.id.newmemo_memo);
-        Newmemo_DateTime = (TextView) rootView.findViewById(R.id.newmemo_datetime);
+        Newmemo_Back = rootView.findViewById(R.id.newmemo_back);
+        Newmemo_Save = rootView.findViewById(R.id.newmemo_save);
+        Newmemo_Title = rootView.findViewById(R.id.newmemo_title);
+        Newmemo_Memo = rootView.findViewById(R.id.newmemo_memo);
+        Newmemo_DateTime = rootView.findViewById(R.id.newmemo_datetime);
 
         TagName = ((MainActivity)getActivity()).newToMainmemo;
         dbHelper = ((MainActivity)getActivity()).dbHelper;
@@ -87,7 +85,7 @@ public class NewMemo_Fragment extends Fragment {
             }
         });
 
-        // TODO: this is important thisng
+        // TODO: implement swipe, margin right left 수정(color pallete)
         final GestureDetector gesture = new GestureDetector(getActivity(),
                 new GestureDetector.SimpleOnGestureListener() {
 

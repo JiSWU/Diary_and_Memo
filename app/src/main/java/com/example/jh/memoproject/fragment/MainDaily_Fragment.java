@@ -37,8 +37,10 @@ public class MainDaily_Fragment extends ListFragment {
 
     FragmentTransaction ft;
 
+    StringBuilder date;
+    String memo, yearmonth, day, week, time;
+    int seq, isholiday;
 
-    protected StringBuilder sb;
 
     //for date picker
     private int mYear, mMonth, mDay;
@@ -61,25 +63,25 @@ public class MainDaily_Fragment extends ListFragment {
         year_month = rootView.findViewById(R.id.daily_year);
 
         newDaily_fragment = new NewDaily_Fragment();
-        TagName = ((MainActivity)getActivity()).newToMaindaily;
+        TagName = ((MainActivity) getActivity()).newToMaindaily;
         args = new Bundle();
 
         // Adapter 생성 및 Adapter 지정.
-        adapter = new DailyListViewAdapter() ;
+        adapter = new DailyListViewAdapter();
         //setListAdapter(adapter) ;
         listview.setAdapter(adapter);
 
         //init now year-month.
-        mYear = ((MainActivity)getActivity()).mYear;
-        mMonth = ((MainActivity)getActivity()).mMonth;
-        mDay = ((MainActivity)getActivity()).mDay;
+        mYear = ((MainActivity) getActivity()).mYear;
+        mMonth = ((MainActivity) getActivity()).mMonth;
+        mDay = ((MainActivity) getActivity()).mDay;
         //year_mont.setText and show listview
         UpdateNow();
 
         year_month.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getActivity(),mDateSetListener, mYear,mMonth, mDay).show();
+                new DatePickerDialog(getActivity(), mDateSetListener, mYear, mMonth, mDay).show();
             }
         });
 
@@ -91,7 +93,7 @@ public class MainDaily_Fragment extends ListFragment {
                 args.putInt("picker_mMonth", mMonth);
                 args.putInt("picker_mDay", mDay);
                 newDaily_fragment.setArguments(args);
-                ((MainActivity)getActivity()).addFragment(ft,newDaily_fragment, R.id.fragment_main, TagName);
+                ((MainActivity) getActivity()).addFragment(ft, newDaily_fragment, R.id.fragment_main, TagName);
                 Log.d("fragment_change", "main(daily) -> new daily");
             }
         });
@@ -110,11 +112,11 @@ public class MainDaily_Fragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        DailyListViewItem item = (DailyListViewItem) l.getItemAtPosition(position) ;
+        DailyListViewItem item = (DailyListViewItem) l.getItemAtPosition(position);
         int seq = item.getSeq();
-        String day = item.getDay() ;
-        String week = item.getWeek() ;
-        String memo = item.getMemo() ;
+        String day = item.getDay();
+        String week = item.getWeek();
+        String memo = item.getMemo();
         String year_month = item.getYear_month();
         int holiday = item.getHoliday();
 
@@ -126,21 +128,17 @@ public class MainDaily_Fragment extends ListFragment {
         args.putString("memo", memo);
         args.putInt("holiday", holiday);
         newDaily_fragment.setArguments(args);
-        ((MainActivity)getActivity()).addFragment(ft,newDaily_fragment, R.id.fragment_main, TagName);
+        ((MainActivity) getActivity()).addFragment(ft, newDaily_fragment, R.id.fragment_main, TagName);
     }
 
-    private void doWhileCursorToArray(){
+    private void doWhileCursorToArray() {
 
-        String memo, year_month, day, week, time;
-        int seq, isholiday;
-
-
-        mCursor = ((MainActivity)getActivity()).dbHelper.getReadableDatabase().rawQuery(
+        mCursor = ((MainActivity) getActivity()).dbHelper.getReadableDatabase().rawQuery(
                 "SELECT *" +
                         " FROM DIARY" +
                         " WHERE YEAR = " +
                         "'" +
-                        this.year_month.getText().toString()+
+                        this.year_month.getText().toString() +
                         "' ORDER BY year desc, day desc, week desc, time desc", null);
 
         Log.e("DiaryDatabase Get", "COUNT = " + mCursor.getCount());
@@ -148,13 +146,36 @@ public class MainDaily_Fragment extends ListFragment {
         while (mCursor.moveToNext()) {
             seq = mCursor.getInt(0);
             memo = mCursor.getString(1);
-            year_month = mCursor.getString(2);
+            yearmonth = mCursor.getString(2);
             day = mCursor.getString(3);
             week = mCursor.getString(4);
             time = mCursor.getString(5);
             isholiday = mCursor.getInt(6);
 
-            adapter.addItem(seq, memo, year_month, day, week, time, isholiday);
+            if (isholiday == 2 && ((MainActivity)getActivity()).isNetworkAvailable(getContext())) {
+                date = new StringBuilder();
+                date.append(yearmonth.replaceAll("[^0-9]", ""));
+                if (day.length() == 1) {
+                    date.append("0");
+                    date.append(day);
+                } else {
+                    date.append(day);
+                }
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        isholiday = ((MainActivity)getActivity()).getHolidayAPI(date.substring(0, 4), date.substring(4, 6), date.toString());
+                        getActivity().runOnUiThread(new Runnable() {
+                            public void run() {
+                                adapter.addItem(seq, memo, yearmonth, day, week, time, isholiday);
+                            }
+                        });
+                    }
+                }.start();
+            } else {
+                adapter.addItem(seq, memo, yearmonth, day, week, time, isholiday);
+            }
 
         }
         mCursor.close();
@@ -173,8 +194,8 @@ public class MainDaily_Fragment extends ListFragment {
         }
     };
 
-    void UpdateNow(){
-        year_month.setText(String.format("%d년 %02d월",mYear, mMonth+1));
+    void UpdateNow() {
+        year_month.setText(String.format("%d년 %02d월", mYear, mMonth + 1));
         // database to listview -> show items
         adapter.clearItem();
         adapter.notifyDataSetChanged();
@@ -184,7 +205,7 @@ public class MainDaily_Fragment extends ListFragment {
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             mYear = savedInstanceState.getInt("save_mYear");
             mMonth = savedInstanceState.getInt("save_mMonth");
             mDay = savedInstanceState.getInt("save_mDay");
@@ -195,7 +216,7 @@ public class MainDaily_Fragment extends ListFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
-        if(context instanceof OnDatePickerStateSetListener){
+        if (context instanceof OnDatePickerStateSetListener) {
             onDatePickerStateSetListener = (OnDatePickerStateSetListener) context;
         } else {
             throw new RuntimeException(context.toString() + "must implements onDatePickerStateSetListener");

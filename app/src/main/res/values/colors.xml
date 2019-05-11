@@ -25,4 +25,26 @@
     <color name="background_memo_style">#F6F6F6</color>
     <color name="memo_font_style">#717171</color>
 
+    <!--color palette-->
+    <color name="color1">#FFFFFF</color>
+    <color name="color1_outline">#E2E2E2</color>
+    <color name="color2">#FF0000</color>
+    <color name="color3">#FF9900</color>
+    <color name="color4">#FFDD00</color>
+    <color name="color5">#71E259</color>
+    <color name="color6">#5EE3ED</color>
+    <color name="color7">#2467ED</color>
+    <color name="color8">#9E9E9E</color>
+    <color name="color9">#268536</color>
+    <color name="color10">#264979</color>
+    <color name="color11">#721AAD</color>
+    <color name="color12">#E73C8B</color>
+    <color name="color13">#8C5C1C</color>
+    <color name="color14">#000000</color>
+
+
+
+
+
+
 </resources>
