@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -108,20 +109,23 @@ public class NewMemo_Fragment extends Fragment {
 
         //swipe to show text editor
         Newmemo_Memo.setOnTouchListener(new OnSwipeTouchListener(getContext()){
-
             @Override
             public void onSwipeTop() {
-                super.onSwipeTop();
                 total_style_ll.setVisibility(View.VISIBLE);
-                Newmemo_Memo.setFocusableInTouchMode(true);
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+                super.onSwipeTop();
             }
 
             @Override
             public void onSwipeBottom() {
                 super.onSwipeBottom();
                 total_style_ll.setVisibility(View.GONE);
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             }
+
         });
+
 
         font_ib.setOnClickListener(new View.OnClickListener() {
             @Override
