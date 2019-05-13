@@ -118,16 +118,20 @@ public class MainActivity extends AppCompatActivity implements OnDatePickerState
     } //end Daily_Clicked()
 
     public void replaceFragment(FragmentTransaction fragmentTransaction, Fragment fragment, int R_id){
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R_id, fragment);
-        fragmentTransaction.commit();
+        if(!fragment.isAdded()) {
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R_id, fragment);
+            fragmentTransaction.commit();
+        }
     } //end ReplaceFragment()
 
     public void addFragment(FragmentTransaction fragmentTransaction, Fragment fragment, int R_id, String fragmentTag){
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R_id, fragment);
-        fragmentTransaction.addToBackStack(fragmentTag);
-        fragmentTransaction.commit();
+        if(!fragment.isAdded()){
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R_id, fragment);
+            fragmentTransaction.addToBackStack(fragmentTag);
+            fragmentTransaction.commit();
+        }
     } //end ReplaceFragment()
 
     public void backFragment(String fragmentTag){

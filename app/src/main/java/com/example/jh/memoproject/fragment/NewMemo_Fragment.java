@@ -3,6 +3,7 @@ package com.example.jh.memoproject.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class NewMemo_Fragment extends Fragment {
     protected LinearLayout total_style_ll;
     protected ImageButton font_ib, size_ib, bold_ib, highlight_ib, row_ib, color_ib;
     protected RelativeLayout font_rl, size_rl, row_rl, color_rl;
+    //editext getselectionstart(), getselectionend()
+    protected int font_start, font_end;
 
 
 
@@ -159,7 +162,32 @@ public class NewMemo_Fragment extends Fragment {
             }
         });
 
+        //if click back button, show 'the total_style_ll' again.
+        rootView.setFocusableInTouchMode(true);
+        rootView.requestFocus();
+        rootView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (size_rl.getVisibility() == View.VISIBLE || row_rl.getVisibility() == View.VISIBLE || color_rl.getVisibility() == View.VISIBLE) {
+                        size_rl.setVisibility(View.GONE);
+                        row_rl.setVisibility(View.GONE);
+                        color_rl.setVisibility(View.GONE);
+                        total_style_ll.setVisibility(View.VISIBLE);
+                        return true;
+                    }
+                    return false;
+                } else {
+                    return false;
+                }
+            }
+        });
+
         return rootView;
         //return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+
+
+
 }

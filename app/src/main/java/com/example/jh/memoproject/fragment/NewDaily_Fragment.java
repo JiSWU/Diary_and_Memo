@@ -185,7 +185,7 @@ public class NewDaily_Fragment extends Fragment {
                         dbHelper.daily_update(memo, year_month, day, week, time, seq, holiday);
                         ((MainActivity)getActivity()).backFragment(TagName);
                         Log.d("fragment_change", "new daily -> main(daily)");
-                        Log.d("holiday", "this value is holiday: "+holiday);
+                        Log.d("holiday", "this value is holiday: " + holiday);
                     }
                 }
 

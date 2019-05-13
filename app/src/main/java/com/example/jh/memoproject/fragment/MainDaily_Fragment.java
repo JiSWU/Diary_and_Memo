@@ -139,7 +139,7 @@ public class MainDaily_Fragment extends ListFragment {
                         " WHERE YEAR = " +
                         "'" +
                         this.year_month.getText().toString() +
-                        "' ORDER BY year desc, day desc, week desc, time desc", null);
+                        "' ORDER BY day, time", null);
 
         Log.e("DiaryDatabase Get", "COUNT = " + mCursor.getCount());
 

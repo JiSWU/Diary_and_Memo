@@ -2,17 +2,12 @@ package com.example.jh.memoproject;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.example.jh.memoproject.List_Grid_view.MemoGridViewItem;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -33,12 +28,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // SQLite Database로 쿼리 실행
         db.execSQL("CREATE TABLE "+DIARY_TABLE + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "MEMO TEXT," +
-                "YEAR TEXT," +
-                "DAY TEXT," +
-                "WEEK TEXT," +
-                "TIME TEXT," +
-                "HOLIDAY INTEGER)");
+                "MEMO TEXT," + //메모
+                "YEAR TEXT," + //년도
+                "DAY TEXT," + //월 일
+                "WEEK TEXT," + //요일
+                "TIME TEXT," + //시간
+                "HOLIDAY INTEGER)"); //주말여부
         db.execSQL("CREATE TABLE "+ MEMO_TABLE + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "TITLE TEXT," +
                 "MEMO TEXT," +
