@@ -1,4 +1,4 @@
-package com.example.jh.memoproject.List_Grid_view;
+package com.example.jh.memoproject.List_Grid_Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

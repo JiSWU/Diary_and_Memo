@@ -1,4 +1,4 @@
-package com.example.jh.memoproject.List_Grid_view;
+package com.example.jh.memoproject.List_Grid_Adapter;
 
 public class MemoGridViewItem {
 

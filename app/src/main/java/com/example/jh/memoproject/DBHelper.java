@@ -16,6 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "diamemo.db";
     static final String MEMO_TABLE = "MEMO";
     static final String DIARY_TABLE = "DIARY";
+    static final String STYLE_TABLE = "STYLE";
     static final int DATABASE_VERSION = 1;
 
 
@@ -38,6 +39,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 "TITLE TEXT," +
                 "MEMO TEXT," +
                 "DATE DATETIME not null  DEFAULT (datetime('now','localtime')))");
+        db.execSQL("CREATE TABLE "+ STYLE_TABLE + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " SEQ INTEGER," +
+                "STYLE BLOB)");
     }
 
     @Override
@@ -124,6 +128,34 @@ public class DBHelper extends SQLiteOpenHelper {
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Date date = new Date(System.currentTimeMillis());
         return dateFormat.format(date);
+    }
+
+    public void style_insert(int id, byte style[]) {
+        // 읽고 쓰기가 가능하게 DB 열기
+        SQLiteDatabase db = getWritableDatabase();
+        // DB에 입력한 값으로 행 추가
+        ContentValues values = new ContentValues();
+        values.put("SEQ", id);
+        values.put("STYLE", style);
+
+        long reuslt = db.insert(STYLE_TABLE, null, values);
+        Log.d("DATABASE","Style Database Insert: "+reuslt);
+
+        db.close();
+    }
+
+    public void style_update(int id, byte[] style) {
+        // 읽고 쓰기가 가능하게 DB 열기
+        SQLiteDatabase db = getWritableDatabase();
+        // DB에 입력한 값으로 행 추가
+        ContentValues values = new ContentValues();
+        values.put("SEQ", id);
+        values.put("STYLE", style);
+
+        db.update(STYLE_TABLE, values, "SEQ=" + id, null);
+        db.close();
+        Log.d("DATABASE","Style Database Update");
+
     }
 
 

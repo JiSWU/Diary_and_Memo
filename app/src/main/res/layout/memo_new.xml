@@ -73,7 +73,10 @@
             android:hint="Input Memo"
             android:textSize="14sp"
             android:textColor="@color/memo_text"
-            android:background="@null"/>
+            android:background="@null"
+            android:inputType="text|textNoSuggestions"
+            android:overScrollMode="always"
+            android:scrollbars="vertical"  />
 
     </LinearLayout>
 

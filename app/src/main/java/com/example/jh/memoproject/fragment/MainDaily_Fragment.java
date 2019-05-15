@@ -16,8 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jh.memoproject.List_Grid_view.DailyListViewAdapter;
-import com.example.jh.memoproject.List_Grid_view.DailyListViewItem;
+import com.example.jh.memoproject.List_Grid_Adapter.DailyListViewAdapter;
+import com.example.jh.memoproject.List_Grid_Adapter.DailyListViewItem;
 import com.example.jh.memoproject.MainActivity;
 import com.example.jh.memoproject.OnDatePickerStateSetListener;
 import com.example.jh.memoproject.R;

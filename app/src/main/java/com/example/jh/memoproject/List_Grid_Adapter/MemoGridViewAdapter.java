@@ -1,4 +1,4 @@
-package com.example.jh.memoproject.List_Grid_view;
+package com.example.jh.memoproject.List_Grid_Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jh.memoproject.DBHelper;
-import com.example.jh.memoproject.MainActivity;
 import com.example.jh.memoproject.R;
 
 import java.util.ArrayList;
@@ -54,10 +52,10 @@ public class MemoGridViewAdapter extends BaseAdapter {
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        TextView dateTextView = (TextView) convertView.findViewById(R.id.gridview_date) ;
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.gridview_title) ;
-        TextView memoTextView = (TextView) convertView.findViewById(R.id.gridview_memo) ;
-        TextView timeTextView = (TextView) convertView.findViewById(R.id.gridview_time) ;
+        TextView dateTextView = convertView.findViewById(R.id.gridview_date);
+        TextView titleTextView = convertView.findViewById(R.id.gridview_title);
+        TextView memoTextView = convertView.findViewById(R.id.gridview_memo);
+        TextView timeTextView = convertView.findViewById(R.id.gridview_time);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         final MemoGridViewItem gridViewItem = gridViewItemList.get(position);
@@ -68,7 +66,7 @@ public class MemoGridViewAdapter extends BaseAdapter {
         memoTextView.setText(gridViewItem.getMemo());
         timeTextView.setText(gridViewItem.getTime());
 
-        ImageButton deleteBtn = (ImageButton)convertView.findViewById(R.id.gridview_delete);
+        ImageButton deleteBtn = convertView.findViewById(R.id.gridview_delete);
 
         //if delete button click
         if(mClick){
@@ -105,10 +103,7 @@ public class MemoGridViewAdapter extends BaseAdapter {
 
     public void showDeleteButton() {
 
-        if (mClick)
-            mClick = false;
-        else
-            mClick = true;
+        mClick = !mClick;
 
         notifyDataSetChanged();
     } //end showDeleteButton()

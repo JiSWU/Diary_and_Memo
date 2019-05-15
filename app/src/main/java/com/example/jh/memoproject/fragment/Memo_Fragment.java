@@ -1,7 +1,6 @@
 package com.example.jh.memoproject.fragment;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,14 +13,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.jh.memoproject.DBHelper;
-import com.example.jh.memoproject.List_Grid_view.DailyListViewAdapter;
-import com.example.jh.memoproject.List_Grid_view.DailyListViewItem;
-import com.example.jh.memoproject.List_Grid_view.MemoGridViewAdapter;
-import com.example.jh.memoproject.List_Grid_view.MemoGridViewItem;
+import com.example.jh.memoproject.List_Grid_Adapter.MemoGridViewAdapter;
+import com.example.jh.memoproject.List_Grid_Adapter.MemoGridViewItem;
 import com.example.jh.memoproject.MainActivity;
 import com.example.jh.memoproject.R;
 
@@ -48,10 +42,10 @@ public class Memo_Fragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.memo, container, false);
 
-        gridView = (GridView) rootView.findViewById(R.id.memo_gridview);
-        newBtn = (ImageButton) rootView.findViewById(R.id.memo_new);
-        delBtn = (ImageButton) rootView.findViewById(R.id.memo_delete);
-        backBtn = (ImageButton) rootView.findViewById(R.id.memo_back);
+        gridView = rootView.findViewById(R.id.memo_gridview);
+        newBtn = rootView.findViewById(R.id.memo_new);
+        delBtn = rootView.findViewById(R.id.memo_delete);
+        backBtn = rootView.findViewById(R.id.memo_back);
         newMemo_fragment = new NewMemo_Fragment();
         mainDaily_fragment = new MainDaily_Fragment();
         TagName = ((MainActivity)getActivity()).newToMainmemo;
