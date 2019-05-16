@@ -1,6 +1,8 @@
 package com.example.jh.memoproject.List_Grid_Adapter;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +41,34 @@ public class MemoGridViewAdapter extends BaseAdapter {
         return position;
     }
 
+    public static Spanned fromHtml(String source){
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            // noinspection deprecation
+            return Html.fromHtml(source);
+        }
+        return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+    }
+
+    // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
+    public void addItem(int seq, String date, String title, String memo, String time) {
+        MemoGridViewItem item = new MemoGridViewItem();
+        item.setSeq(seq);
+        item.setDate(date);
+        item.setTitle(title);
+        item.setMemo(memo);
+        item.setTime(time);
+
+        gridViewItemList.add(item);
+    }
+
+
+    public void showDeleteButton() {
+
+        mClick = !mClick;
+
+        notifyDataSetChanged();
+    } //end showDeleteButton()
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final int pos = position;
@@ -63,7 +93,7 @@ public class MemoGridViewAdapter extends BaseAdapter {
         // 아이템 내 각 위젯에 데이터 반영
         dateTextView.setText(gridViewItem.getDate());
         titleTextView.setText(gridViewItem.getTitle());
-        memoTextView.setText(gridViewItem.getMemo());
+        memoTextView.setText(fromHtml(gridViewItem.getMemo()));
         timeTextView.setText(gridViewItem.getTime());
 
         ImageButton deleteBtn = convertView.findViewById(R.id.gridview_delete);
@@ -87,25 +117,5 @@ public class MemoGridViewAdapter extends BaseAdapter {
 
         return convertView;
     }
-
-    // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(int seq, String date, String title, String memo, String time) {
-        MemoGridViewItem item = new MemoGridViewItem();
-        item.setSeq(seq);
-        item.setDate(date);
-        item.setTitle(title);
-        item.setMemo(memo);
-        item.setTime(time);
-
-        gridViewItemList.add(item);
-    }
-
-
-    public void showDeleteButton() {
-
-        mClick = !mClick;
-
-        notifyDataSetChanged();
-    } //end showDeleteButton()
 
 }

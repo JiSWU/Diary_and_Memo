@@ -163,8 +163,8 @@
     <!--select font-->
     <RelativeLayout
         android:id="@+id/style_font"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
@@ -182,59 +182,67 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_alignParentBottom="true"
             android:background="@color/background_memo_style"
             android:orientation="horizontal"
             android:weightSum="1">
 
-            <TextView
+            <Button
                 android:id="@+id/font_1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:layout_gravity="center_horizontal"
                 android:text="굴림"
                 android:textColor="@color/memo_font_style"
                 android:textSize="14sp"
-                android:fontFamily="@font/gulim"/>
-            <TextView
+                android:background="@null"
+                android:fontFamily="@font/gulim"
+                android:gravity="center_horizontal"/>
+            <Button
                 android:id="@+id/font_2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:text="궁서"
                 android:textColor="@color/memo_font_style"
                 android:textSize="14sp"
-                android:fontFamily="@font/gungsuh"/>
-            <TextView
+                android:background="@null"
+                android:fontFamily="@font/gungsuh"
+                android:gravity="center_horizontal"/>
+            <Button
                 android:id="@+id/font_3"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:text="돋움"
                 android:textColor="@color/memo_font_style"
                 android:textSize="14sp"
-                android:fontFamily="@font/dotum"/>
-            <TextView
+                android:background="@null"
+                android:fontFamily="@font/dotum"
+                android:gravity="center_horizontal"/>
+            <Button
                 android:id="@+id/font_4"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:text="바탕"
                 android:textColor="@color/memo_font_style"
                 android:textSize="14sp"
-                android:fontFamily="@font/batang"/>
-            <TextView
+                android:background="@null"
+                android:fontFamily="@font/batang"
+                android:gravity="center_horizontal"/>
+            <Button
                 android:id="@+id/font_5"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:text="맑은 고딕"
                 android:textColor="@color/memo_font_style"
                 android:textSize="12sp"
-                android:fontFamily="@font/malgun"/>
+                android:background="@null"
+                android:fontFamily="@font/malgun"
+                android:gravity="center_horizontal"/>
 
         </LinearLayout>
     </RelativeLayout>
@@ -411,6 +419,7 @@
                 android:weightSum="1.4">
 
                 <ImageView
+                    android:id="@+id/color1"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -418,6 +427,7 @@
                     android:background="@drawable/color1" />
 
                 <ImageView
+                    android:id="@+id/color2"
                     android:layout_width="0dp"
                     android:layout_height="15dp"
                     android:layout_weight="0.2"
@@ -425,6 +435,7 @@
                     android:background="@drawable/color2" />
 
                 <ImageView
+                    android:id="@+id/color3"
                     android:layout_width="0dp"
                     android:layout_height="15dp"
                     android:layout_weight="0.2"
@@ -432,6 +443,7 @@
                     android:background="@drawable/color3" />
 
                 <ImageView
+                    android:id="@+id/color4"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -439,6 +451,7 @@
                     android:background="@drawable/color4" />
 
                 <ImageView
+                    android:id="@+id/color5"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -446,6 +459,7 @@
                     android:background="@drawable/color5" />
 
                 <ImageView
+                    android:id="@+id/color6"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -453,6 +467,7 @@
                     android:background="@drawable/color6" />
 
                 <ImageView
+                    android:id="@+id/color7"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -469,6 +484,7 @@
 
 
                 <ImageView
+                    android:id="@+id/color8"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -476,6 +492,7 @@
                     android:background="@drawable/color8" />
 
                 <ImageView
+                    android:id="@+id/color9"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -483,6 +500,7 @@
                     android:background="@drawable/color9" />
 
                 <ImageView
+                    android:id="@+id/color10"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -490,6 +508,7 @@
                     android:background="@drawable/color10" />
 
                 <ImageView
+                    android:id="@+id/color11"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -497,6 +516,7 @@
                     android:background="@drawable/color11" />
 
                 <ImageView
+                    android:id="@+id/color12"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -504,6 +524,7 @@
                     android:background="@drawable/color12" />
 
                 <ImageView
+                    android:id="@+id/color13"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
@@ -511,6 +532,7 @@
                     android:background="@drawable/color13" />
 
                 <ImageView
+                    android:id="@+id/color14"
                     android:layout_width="0dp"
                     android:layout_height="18dp"
                     android:layout_weight="0.2"
