@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.NewMemo_Fragment"
     android:background="@color/background_base">
 
@@ -74,9 +75,10 @@
             android:textSize="14sp"
             android:textColor="@color/memo_text"
             android:background="@null"
-            android:inputType="text|textNoSuggestions"
+            android:freezesText="true"
             android:overScrollMode="always"
-            android:scrollbars="vertical"  />
+            android:inputType="text|textNoSuggestions|textMultiLine"
+            android:scrollbars="vertical" />
 
     </LinearLayout>
 
@@ -290,16 +292,23 @@
                 android:background="@null"
                 android:gravity="center_horizontal"
                 android:text="ㅡ"
-                android:textColor="@color/seekbar_resize"
-                android:textSize="10sp"/>
+                android:layout_centerVertical="true"
+                android:textColor="@color/seekbar_thumb_text"
+                android:textSize="12sp"/>
 
-            <SeekBar
+            <!--https://github.com/AnderWeb/discreteSeekBar-->
+            <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
                 android:id="@+id/font_size_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/font_size_plus"
                 android:layout_toRightOf="@+id/font_size_minus"
-                android:max="100"
+                app:dsb_indicatorColor="@color/seekbar"
+                app:dsb_indicatorTextAppearance="@color/thumb_text"
+                app:dsb_max="100"
+                app:dsb_min="0"
+                app:dsb_progressColor="@color/seekbar"
+                app:dsb_trackColor="@color/seekbar_under"
                 />
 
             <Button
@@ -310,8 +319,10 @@
                 android:background="@null"
                 android:gravity="center"
                 android:text="+"
-                android:textColor="@color/seekbar_resize"
-                android:textSize="10sp"/>
+                android:layout_centerVertical="true"
+                android:textColor="@color/seekbar_thumb_text"
+                android:textSize="12sp"
+                />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -359,16 +370,22 @@
                 android:background="@null"
                 android:gravity="center_horizontal"
                 android:text="ㅡ"
-                android:textColor="@color/seekbar_resize"
-                android:textSize="10sp"/>
+                android:layout_centerVertical="true"
+                android:textColor="@color/seekbar_thumb_text"
+                android:textSize="12sp"/>
 
-            <SeekBar
+            <!--https://github.com/AnderWeb/discreteSeekBar-->
+            <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
                 android:id="@+id/font_row_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/font_row_plus"
                 android:layout_toRightOf="@+id/font_row_minus"
-                android:max="100"
+                app:dsb_indicatorColor="@color/seekbar"
+                app:dsb_max="100"
+                app:dsb_min="0"
+                app:dsb_progressColor="@color/seekbar"
+                app:dsb_trackColor="@color/seekbar_under"
                 />
 
             <Button
@@ -379,8 +396,9 @@
                 android:background="@null"
                 android:gravity="center"
                 android:text="+"
-                android:textColor="@color/seekbar_resize"
-                android:textSize="10sp"/>
+                android:layout_centerVertical="true"
+                android:textColor="@color/seekbar_thumb_text"
+                android:textSize="12sp"/>
 
         </RelativeLayout>
     </RelativeLayout>

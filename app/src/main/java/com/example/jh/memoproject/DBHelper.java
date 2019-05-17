@@ -16,7 +16,12 @@ public class DBHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "diamemo.db";
     static final String MEMO_TABLE = "MEMO";
     static final String DIARY_TABLE = "DIARY";
-    static final String STYLE_TABLE = "STYLE";
+
+    //text style table in memo
+    static final String FONT_TABLE = "FONT";
+    static final String SIZE_TABLE = "FONT_SIZE";
+    static final String ROW_TABLE = "FONT_ROW";
+
     static final int DATABASE_VERSION = 1;
 
 
@@ -35,13 +40,29 @@ public class DBHelper extends SQLiteOpenHelper {
                 "WEEK TEXT," + //요일
                 "TIME TEXT," + //시간
                 "HOLIDAY INTEGER)"); //주말여부
+
         db.execSQL("CREATE TABLE "+ MEMO_TABLE + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "TITLE TEXT," +
                 "MEMO TEXT," +
                 "DATE DATETIME not null  DEFAULT (datetime('now','localtime')))");
-        db.execSQL("CREATE TABLE "+ STYLE_TABLE + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+
+        db.execSQL("CREATE TABLE "+ FONT_TABLE + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " SEQ INTEGER," +
-                "STYLE BLOB)");
+                " FONT TEXT," +
+                " START_INDEX INTEGER," +
+                " END_INDEX INTEGER)");
+
+        db.execSQL("CREATE TABLE "+ SIZE_TABLE + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " SEQ INTEGER," +
+                " SIZE INTEGER," +
+                " START_INDEX INTEGER," +
+                " END_INDEX INTEGER)");
+
+        db.execSQL("CREATE TABLE "+ ROW_TABLE + " (_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " SEQ INTEGER," +
+                " SIZE INTEGER," +
+                " START_INDEX INTEGER," +
+                " END_INDEX INTEGER)");
     }
 
     @Override
@@ -83,6 +104,15 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         else if (tablename.equals(DIARY_TABLE)){
             db.delete(DIARY_TABLE,  "_ID" + "=" + seq, null);
+        }
+        else if (tablename.equals(FONT_TABLE)){
+            db.delete(FONT_TABLE,  "SEQ" + "=" + seq, null);
+        }
+        else if (tablename.equals(SIZE_TABLE)){
+            db.delete(SIZE_TABLE,  "SEQ" + "=" + seq, null);
+        }
+        else if (tablename.equals(ROW_TABLE)){
+            db.delete(ROW_TABLE,  "SEQ" + "=" + seq, null);
         }
         db.close();
     }
@@ -130,32 +160,101 @@ public class DBHelper extends SQLiteOpenHelper {
         return dateFormat.format(date);
     }
 
-    public void style_insert(int id, byte style[]) {
+    public void font_insert(int id, String font, int start, int end) {
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
         // DB에 입력한 값으로 행 추가
         ContentValues values = new ContentValues();
         values.put("SEQ", id);
-        values.put("STYLE", style);
+        values.put("FONT ", font);
+        values.put("START_INDEX ", start);
+        values.put("END_INDEX ", end);
 
-        long reuslt = db.insert(STYLE_TABLE, null, values);
-        Log.d("DATABASE","Style Database Insert: "+reuslt);
+        long reuslt = db.insert(FONT_TABLE, null, values);
+        Log.d("DATABASE","FONT_TABLE Database Insert: "+reuslt);
 
         db.close();
     }
 
-    public void style_update(int id, byte[] style) {
+    public void font_update(int id, String font, int start, int end) {
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
         // DB에 입력한 값으로 행 추가
         ContentValues values = new ContentValues();
         values.put("SEQ", id);
-        values.put("STYLE", style);
+        values.put("FONT ", font);
+        values.put("START_INDEX ", start);
+        values.put("END_INDEX ", end);
 
-        db.update(STYLE_TABLE, values, "SEQ=" + id, null);
+        db.update(FONT_TABLE , values, "SEQ=" + id, null);
+        Log.d("DATABASE","FONT_TABLE  Database Update");
+
         db.close();
-        Log.d("DATABASE","Style Database Update");
+    }
 
+    public void font_size_insert(int id, int size, int start, int end) {
+        // 읽고 쓰기가 가능하게 DB 열기
+        SQLiteDatabase db = getWritableDatabase();
+        // DB에 입력한 값으로 행 추가
+        ContentValues values = new ContentValues();
+        values.put("SEQ", id);
+        values.put("SIZE  ", size);
+        values.put("START_INDEX ", start);
+        values.put("END_INDEX ", end);
+
+        long reuslt = db.insert(SIZE_TABLE , null, values);
+        Log.d("DATABASE","SIZE_TABLE  Database Insert: "+reuslt);
+
+        db.close();
+    }
+
+    public void font_size_update(int id, int size, int start, int end) {
+        // 읽고 쓰기가 가능하게 DB 열기
+        SQLiteDatabase db = getWritableDatabase();
+        // DB에 입력한 값으로 행 추가
+        ContentValues values = new ContentValues();
+        values.put("SEQ", id);
+        values.put("SIZE  ", size);
+        values.put("START_INDEX ", start);
+        values.put("END_INDEX ", end);
+
+        db.update(SIZE_TABLE  , values, "SEQ=" + id, null);
+        Log.d("DATABASE","SIZE_TABLE   Database Update");
+
+        db.close();
+    }
+
+    public void font_row_insert(int id, int size, int start, int end) {
+        // 읽고 쓰기가 가능하게 DB 열기
+        SQLiteDatabase db = getWritableDatabase();
+        // DB에 입력한 값으로 행 추가
+        ContentValues values = new ContentValues();
+        values.put("SEQ", id);
+        values.put("SIZE  ", size);
+        values.put("START_INDEX ", start);
+        values.put("END_INDEX ", end);
+
+        long reuslt = db.insert(ROW_TABLE  , null, values);
+        Log.d("DATABASE","ROW_TABLE   Database Insert: "+reuslt);
+
+        db.close();
+    }
+
+
+    public void font_row_update(int id, int size, int start, int end) {
+        // 읽고 쓰기가 가능하게 DB 열기
+        SQLiteDatabase db = getWritableDatabase();
+        // DB에 입력한 값으로 행 추가
+        ContentValues values = new ContentValues();
+        values.put("SEQ", id);
+        values.put("SIZE  ", size);
+        values.put("START_INDEX ", start);
+        values.put("END_INDEX ", end);
+
+        db.update(ROW_TABLE , values, "SEQ=" + id, null);
+        Log.d("DATABASE","ROW_TABLE    Database Update");
+
+        db.close();
     }
 
 

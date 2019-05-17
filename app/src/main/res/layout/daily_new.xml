@@ -97,7 +97,7 @@
 
         <View style="@style/Divider"/>
 
-        <com.example.jh.memoproject.LinedEditText
+        <com.example.jh.memoproject.CustomObject.LinedEditText
             android:id="@+id/newdaily_editmemo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -108,7 +108,7 @@
             android:scrollbars="vertical"
             android:background="@null"
             >
-        </com.example.jh.memoproject.LinedEditText>
+        </com.example.jh.memoproject.CustomObject.LinedEditText>
 
     </LinearLayout>
 

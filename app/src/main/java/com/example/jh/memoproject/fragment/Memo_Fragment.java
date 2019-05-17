@@ -103,7 +103,9 @@ public class Memo_Fragment extends Fragment {
                 args.putString("date", date);
                 args.putString("time", time);
                 newMemo_fragment.setArguments(args);
+
                 ((MainActivity)getActivity()).addFragment(ft,newMemo_fragment, R.id.fragment_main, TagName);
+
 
             }
         });

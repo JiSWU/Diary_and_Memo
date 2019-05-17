@@ -14,8 +14,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jh.memoproject.CustomObject.LinedEditText;
 import com.example.jh.memoproject.DBHelper;
-import com.example.jh.memoproject.LinedEditText;
 import com.example.jh.memoproject.MainActivity;
 import com.example.jh.memoproject.R;
 
