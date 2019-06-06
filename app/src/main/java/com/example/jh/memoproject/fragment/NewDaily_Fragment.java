@@ -159,12 +159,12 @@ public class NewDaily_Fragment extends Fragment {
                                         }
                                     });
                                 }else {
-                                    dbHelper.daily_insert(memo, year_month, day, week, time, holiday);
+                                    dbHelper.daily_insert(memo, year_month, date.substring(6), week, time, holiday);
                                     ((MainActivity)getActivity()).backFragment(TagName);
                                     Log.d("fragment_change", "new daily -> main(daily)");
                                 }
                             } else if(status.equals("edit")) {
-                                dbHelper.daily_update(memo, year_month, day, week, time, seq, holiday);
+                                dbHelper.daily_update(memo, year_month, date.substring(6), week, time, seq, holiday);
                                 ((MainActivity)getActivity()).backFragment(TagName);
                                 Log.d("fragment_change", "new daily -> main(daily)");
 
@@ -177,12 +177,12 @@ public class NewDaily_Fragment extends Fragment {
                         if(memo.equals("")){
                             Toast.makeText(getContext(),"write content", Toast.LENGTH_SHORT).show();
                         }else {
-                            dbHelper.daily_insert(memo, year_month, day, week, time, 2);
+                            dbHelper.daily_insert(memo, year_month, date.substring(6), week, time, 2);
                             ((MainActivity)getActivity()).backFragment(TagName);
                             Log.d("fragment_change", "new daily -> main(daily)");
                         }
                     } else if(status.equals("edit")) {
-                        dbHelper.daily_update(memo, year_month, day, week, time, seq, holiday);
+                        dbHelper.daily_update(memo, year_month, date.substring(6), week, time, seq, holiday);
                         ((MainActivity)getActivity()).backFragment(TagName);
                         Log.d("fragment_change", "new daily -> main(daily)");
                         Log.d("holiday", "this value is holiday: " + holiday);

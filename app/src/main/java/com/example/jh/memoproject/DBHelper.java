@@ -100,6 +100,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if(tablename.equals(MEMO_TABLE)){
             db.delete(MEMO_TABLE,  "_ID" + "=" + seq, null);
+            db.delete(DIARY_TABLE,  "_ID" + "=" + seq, null);
+            db.delete(FONT_TABLE,  "SEQ" + "=" + seq, null);
+            db.delete(ROW_TABLE,  "SEQ" + "=" + seq, null);
             Log.d("DATABSE", "deleteTbDayStory() id : " + seq);
         }
         else if (tablename.equals(DIARY_TABLE)){
@@ -176,22 +179,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void font_update(int id, String font, int start, int end) {
-        // 읽고 쓰기가 가능하게 DB 열기
-        SQLiteDatabase db = getWritableDatabase();
-        // DB에 입력한 값으로 행 추가
-        ContentValues values = new ContentValues();
-        values.put("SEQ", id);
-        values.put("FONT ", font);
-        values.put("START_INDEX ", start);
-        values.put("END_INDEX ", end);
-
-        db.update(FONT_TABLE , values, "SEQ=" + id, null);
-        Log.d("DATABASE","FONT_TABLE  Database Update");
-
-        db.close();
-    }
-
     public void font_size_insert(int id, int size, int start, int end) {
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
@@ -204,22 +191,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long reuslt = db.insert(SIZE_TABLE , null, values);
         Log.d("DATABASE","SIZE_TABLE  Database Insert: "+reuslt);
-
-        db.close();
-    }
-
-    public void font_size_update(int id, int size, int start, int end) {
-        // 읽고 쓰기가 가능하게 DB 열기
-        SQLiteDatabase db = getWritableDatabase();
-        // DB에 입력한 값으로 행 추가
-        ContentValues values = new ContentValues();
-        values.put("SEQ", id);
-        values.put("SIZE  ", size);
-        values.put("START_INDEX ", start);
-        values.put("END_INDEX ", end);
-
-        db.update(SIZE_TABLE  , values, "SEQ=" + id, null);
-        Log.d("DATABASE","SIZE_TABLE   Database Update");
 
         db.close();
     }
@@ -240,22 +211,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
-    public void font_row_update(int id, int size, int start, int end) {
-        // 읽고 쓰기가 가능하게 DB 열기
-        SQLiteDatabase db = getWritableDatabase();
-        // DB에 입력한 값으로 행 추가
-        ContentValues values = new ContentValues();
-        values.put("SEQ", id);
-        values.put("SIZE  ", size);
-        values.put("START_INDEX ", start);
-        values.put("END_INDEX ", end);
-
-        db.update(ROW_TABLE , values, "SEQ=" + id, null);
-        Log.d("DATABASE","ROW_TABLE    Database Update");
-
-        db.close();
-    }
 
 
 }

@@ -86,7 +86,7 @@ public class NewMemo_Fragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
+        //TODO: edittext cursor 유지(layout에 touchevent 넣기), 행간격 설정 후 텍스트 라인 바뀌는 문제 발생
         final View rootView = inflater.inflate(R.layout.memo_new, container, false);
 
         Newmemo_Back = rootView.findViewById(R.id.newmemo_back);
@@ -259,6 +259,7 @@ public class NewMemo_Fragment extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 total_style_ll.setVisibility(View.GONE);
                 size_rl.setVisibility(View.VISIBLE);
+                //TODO: setProgressbar need to edit
                 size_seekbar.setProgress(14);
             }
         });
@@ -306,6 +307,7 @@ public class NewMemo_Fragment extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 total_style_ll.setVisibility(View.GONE);
                 row_rl.setVisibility(View.VISIBLE);
+                //TODO: setProgressbar need to edit
                 row_seekbar.setProgress(10);
             }
         });
@@ -650,8 +652,8 @@ public class NewMemo_Fragment extends Fragment implements View.OnClickListener {
                 start = mCursor.getInt(1);
                 end = mCursor.getInt(2);
 
-                sb.setSpan(new AbsoluteSizeSpan(size), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                Log.e("FONTSIZEDATABSE Get", "Size = " + size + "start = " +  start + "start = " + end);
+                sb.setSpan(new AbsoluteSizeSpan(size, true), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                Log.e("FONTSIZEDATABSE Get", "Size = " + size + ", start = " +  start + ", end = " + end);
 
                 editor.setText(sb);
             } // end get and set font_size
