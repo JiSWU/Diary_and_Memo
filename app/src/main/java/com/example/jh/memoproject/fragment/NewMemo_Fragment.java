@@ -86,7 +86,11 @@ public class NewMemo_Fragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        //TODO: edittext cursor 유지(layout에 touchevent 넣기), 행간격 설정 후 텍스트 라인 바뀌는 문제 발생
+        /*
+        TODO: edittext cursor 유지(layout에 touchevent 넣기)
+        TODO: 행간격 설정 후 텍스트 라인 바뀌는 문제 발생
+        TODO: setProgressbar need to edit
+         */
         final View rootView = inflater.inflate(R.layout.memo_new, container, false);
 
         Newmemo_Back = rootView.findViewById(R.id.newmemo_back);
