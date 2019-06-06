@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements OnDatePickerState
     public int getHolidayAPI(String year, String month, String date){
         try{
             StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"); /*URL*/
-            urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=gajrpchqjDXZyXfBUDFZFSsC7l8o6ycd0SEKim98RHYFvK3J%2BiMu5YNNzDS7qaHHRhj8JGtsZb4JUgEzc8tk2g%3D%3D"); /*Service Key*/
+            urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=insert your key"); /*Service Key*/
             urlBuilder.append("&" + URLEncoder.encode("solYear","UTF-8") + "=" + URLEncoder.encode(year, "UTF-8")); /*연*/
             urlBuilder.append("&" + URLEncoder.encode("solMonth","UTF-8") + "=" + URLEncoder.encode(month, "UTF-8")); /*월*/
 
