@@ -15,9 +15,9 @@ At last, the app are still remained some errors and TODOs.
 
 ### Diary
 
-<img src="./image_readme/diary_image.png" width="70%" height=70%/>
+<img src="./image_readme/diary_image.png" width="20%" height=20%/>
 
 ### Memo
 
-<img src="./image_readme/memo_image.png" width="70%" height=70%/>
+<img src="./image_readme/memo_image.png" width="20%" height=20%/>
 
